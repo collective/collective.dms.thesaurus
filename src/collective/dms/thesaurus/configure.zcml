@@ -1,0 +1,50 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:grok="http://namespaces.zope.org/grok"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="collective.dms.thesaurus">
+
+  <include package="five.grok" />
+
+  <grok:grok package="." />
+
+  <i18n:registerTranslations directory="locales" />
+
+  <include package="plone.app.dexterity" />
+  <include package="plone.supermodel" />
+  <include package="plone.app.relationfield" />
+  <include package="collective.dms.thesaurus" />
+  <include package="collective.contact.content" />
+
+  <genericsetup:registerProfile
+      name="default"
+      title="collective.dms.thesaurus"
+      directory="profiles/default"
+      description="Installs the collective.dms.thesaurus package"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+  <utility
+      factory=".dmskeyword.DmsKeywordSchemaPolicy"
+      name="schema_policy_dmskeyword"
+      />
+
+  <utility
+      factory=".dmskeyword.DmsOutgoingMailSchemaPolicy"
+      name="schema_policy_dmsoutgoingmail"
+      />
+
+  <browser:resource
+      name="dmskeyword_icon.png"
+      image="dmskeyword_icon.png"
+      />
+
+  <browser:resource
+      name="dmskeyword_orange_icon.png"
+      image="dmskeyword_orange_icon.png"
+      />
+
+
+</configure>

@@ -16,7 +16,6 @@
   <include package="plone.supermodel" />
   <include package="plone.app.relationfield" />
   <include package="collective.dms.thesaurus" />
-  <include package="collective.contact.content" />
 
   <genericsetup:registerProfile
       name="default"
@@ -32,19 +31,8 @@
       />
 
   <utility
-      factory=".dmskeyword.DmsOutgoingMailSchemaPolicy"
-      name="schema_policy_dmsoutgoingmail"
+      factory=".dmsthesaurus.DmsThesaurusSchemaPolicy"
+      name="schema_policy_dmsthesaurus"
       />
-
-  <browser:resource
-      name="dmskeyword_icon.png"
-      image="dmskeyword_icon.png"
-      />
-
-  <browser:resource
-      name="dmskeyword_orange_icon.png"
-      image="dmskeyword_orange_icon.png"
-      />
-
 
 </configure>

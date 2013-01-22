@@ -1,16 +1,18 @@
 <?xml version="1.0"?>
-<object name="dmskeyword" meta_type="Dexterity FTI" i18n:domain="plone"
+<object name="dmsthesaurus" meta_type="Dexterity FTI" i18n:domain="plone"
    xmlns:i18n="http://xml.zope.org/namespaces/i18n">
- <property name="title" i18n:translate="">Keyword</property>
- <property name="description" i18n:translate="">DMS Keyword</property>
+ <property name="title" i18n:translate="">Thesaurus</property>
+ <property name="description" i18n:translate="">DMS Thesaurus</property>
  <property name="icon_expr">string:${portal_url}/++resource++folder_icon.png</property>
- <property name="factory">dmskeyword</property>
- <property name="add_view_expr">string:${folder_url}/++add++dmskeyword</property>
+ <property name="factory">dmsthesaurus</property>
+ <property name="add_view_expr">string:${folder_url}/++add++dmsthesaurus</property>
  <property name="link_target"></property>
  <property name="immediate_view">view</property>
  <property name="global_allow">True</property>
  <property name="filter_content_types">True</property>
- <property name="allowed_content_types"/>
+ <property name="allowed_content_types">
+  <element value="dmskeyword"/>
+ </property>
  <property name="allow_discussion">False</property>
  <property name="default_view">view</property>
  <property name="view_methods">
@@ -18,7 +20,7 @@
  </property>
  <property name="default_view_fallback">False</property>
  <property name="add_permission">cmf.AddPortalContent</property>
- <property name="klass">collective.dms.thesaurus.dmskeyword.DmsKeyword</property>
+ <property name="klass">collective.dms.thesaurus.dmsthesaurus.DmsThesaurus</property>
  <property name="behaviors">
   <element value="plone.app.content.interfaces.INameFromTitle"/>
   <element value="plone.app.dexterity.behaviors.metadata.IDublinCore"/>
@@ -26,8 +28,8 @@
 </property>
  <!-- DO NOT use a model_source or it removes manually added fields while reapplying the profile -->
  <!--property name="model_source" /-->
- <property name="schema">collective.dms.thesaurus.dmskeyword.IDmsKeyword</property>
- <property name="schema_policy">schema_policy_dmskeyword</property>
+ <property name="schema">collective.dms.thesaurus.dmsthesaurus.IDmsThesaurus</property>
+ <property name="schema_policy">schema_policy_dmsthesaurus</property>
  <alias from="(Default)" to="(dynamic view)"/>
  <alias from="edit" to="@@edit"/>
  <alias from="sharing" to="@@sharing"/>

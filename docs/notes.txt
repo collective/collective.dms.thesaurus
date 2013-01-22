@@ -1,0 +1,70 @@
+=====================
+Feuille de route PFWB
+=====================
+
+Thesaurus
+=========
+
+Nom de leur DB: Tabelio
+
+Objet KW
+--------
+
+Relations pour chaque KW:
+
+- BT/NT: Broader-Narrower (Parent-enfant)
+- EQ/UF: equiv(/inverse) ex: initiales, acronyme, etc.
+- RT: Lien sémantique
+- LT: réflexif (à priori pas besoin)
+- NH: note historique
+
+Un enfant peut avoir plusieurs parents => On garde une relation pour
+parent-enfant, pas d'arborescence de type conteneur.
+
+La relation EQ/UF devrait pouvoir se stocker sous la forme d'un champ de
+l'objet KW (peut-être sous la forme d'une table si une note doit pouvoir
+être associée à la relation).
+
+RT: relation.
+
+NH: champ de l'objet.
+
+Résumé :
+
+- champ ID
+- champ Titre (dénomination du KW)
+- champ Description (NH)
+- champ (multi texte) EQ/UF
+- champ Enfant (relation -> NT)
+- champ RT (relation)
+- champ NH
+
+
+Le widget
+---------
+
+Un champ texte de type autocomplete pour initier le widget.
+
++--------------------------------+
+| search:                        |
+| + - <KW>                       |
+| | - <KW>                       |
+| | - ...                        |
++--------------------------------+
+
+Puis un widget de la forme:
+
++--------------------------------+
+| search:                        |
+| + - <KW>                       |
+| | - <KW>                       |
+| | - ...                        |
++--------+--------------+--------+
+| - <BT> | **Theme KW** | - <NT> |
+| - <BT> +--------------+ - <NT> |
+| - ...  | - <RT>       | - ...  |
+|        | - <RT>       |        |
+|        | - ....       |        |
++--------+--------------+--------+
+|              [cancel] [choose] |
++--------+--------------+--------+

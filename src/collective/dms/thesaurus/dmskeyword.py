@@ -19,33 +19,18 @@ from plone.supermodel import model
 
 from . import _
 from .relatedkeywords import RelatedThesaurusKeywords
+from .equivalences import ThesaurusKeywordEquivalences
 
 #from plone.autoform import directives as form
 #from plone.directives.form import default_value
-
-class IEquivalences(IList):
-    """"""
-
-class Equivalences(schema.List):
-    implements(IEquivalences)
-
-    def __init__(self, **kwargs):
-        schema.List.__init__(self, **kwargs)
-
-@adapter(IEquivalences, IFormLayer)
-@implementer(IFieldWidget)
-def EquivalencesWidget(field, request):
-    return FieldWidget(field, TextLinesFieldWidget(request))
-
 
 class IDmsKeyword(model.Schema):
     """ """
 
     # XXX: Ungly widget that needs to be replaced
-    equivs = Equivalences(
+    equivs = ThesaurusKeywordEquivalences(
         title=u'EQs',
         required=False,
-        value_type=schema.TextLine()
         )
 
     # BT: broader term

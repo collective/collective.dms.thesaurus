@@ -39,6 +39,7 @@ class ThesaurusKeywordEquivalences(schema.List):
 
     def __init__(self, **kwargs):
         super(ThesaurusKeywordEquivalences, self).__init__(
-                        value_type=schema.TextLine(),
+                        value_type=schema.TextLine(
+                            title=u'', required=False),
                         **kwargs)
 

@@ -29,7 +29,7 @@ class IDmsKeyword(model.Schema):
 
     # XXX: Ungly widget that needs to be replaced
     equivs = ThesaurusKeywordEquivalences(
-        title=u'EQs',
+        title=u'EQ (Equivalences)',
         required=False,
         )
 

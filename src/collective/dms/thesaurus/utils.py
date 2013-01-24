@@ -5,6 +5,9 @@ from zope.app.intid.interfaces import IIntIds
 from z3c.relationfield import RelationValue
 from Products.Five.browser import BrowserView
 
+from zope.event import notify
+from zope.lifecycleevent import ObjectAddedEvent, ObjectModifiedEvent
+
 
 class ImportJson(BrowserView):
     def __call__(self):
@@ -25,6 +28,7 @@ class ImportJson(BrowserView):
                 self.context.invokeFactory('dmskeyword', term_id,
                                    title=term.get('title'))
                 object = getattr(self.context, term_id)
+                notify(ObjectAddedEvent(object))
                 try:
                     term_intids[term_id] = self.intids.getId(object)
                 except KeyError:
@@ -39,5 +43,6 @@ class ImportJson(BrowserView):
             object = getattr(self.context, term_id)
             object.related = [RelationValue(term_intids[x]) for x in term.get('related', [])]
             object.broader = [RelationValue(term_intids[x]) for x in term.get('parents', [])]
+            notify(ObjectModifiedEvent(object))
 
         return 'OK'

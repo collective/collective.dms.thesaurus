@@ -36,4 +36,11 @@
       name="schema_policy_dmsthesaurus"
       />
 
+  <browser:view
+      name="import_json"
+      for="collective.dms.thesaurus.dmsthesaurus.IDmsThesaurus"
+      class=".utils.ImportJson"
+      permission="cmf.ManagePortal"
+      />
+
 </configure>

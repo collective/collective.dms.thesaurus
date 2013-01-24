@@ -87,8 +87,6 @@ TODO
 
 - terminer la vue pour les kws
   - equivalences sous forme de liste
-  - virer les doublons dans les RT
-  - afficher les enfants
   - affiner la feuille de style
 
 - vocabulaire pour autocomplete

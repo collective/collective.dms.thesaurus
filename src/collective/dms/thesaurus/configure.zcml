@@ -19,6 +19,7 @@
   <include package=".browser" />
 
   <adapter factory=".relatedkeywords.RelatedThesaurusKeywordsFieldWidget" />
+  <adapter factory=".equivalences.ThesaurusKeywordEquivalencesFieldWidget" />
 
   <genericsetup:registerProfile
       name="default"

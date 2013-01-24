@@ -10,6 +10,7 @@ from z3c.relationfield.interfaces import IRelationList
 from z3c.relationfield.schema import RelationChoice, RelationList
 
 from plone.formwidget.contenttree.widget import MultiContentTreeWidget
+from plone.formwidget.contenttree.utils import closest_content
 from plone.formwidget.contenttree import ObjPathSourceBinder
 
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
@@ -40,15 +41,26 @@ class RelatedThesaurusKeywordsWidget(MultiContentTreeWidget):
 def RelatedThesaurusKeywordsFieldWidget(field, request):
     return FieldWidget(field, RelatedThesaurusKeywordsWidget(field.display_backrefs, request))
 
+class ThesaurusPathSourceBinder(ObjPathSourceBinder):
+
+    def __call__(self, context):
+        selectable_filter = self.selectable_filter
+        selectable_filter.criteria['portal_type'] = ('dmskeyword',)
+        thesaurus_path = {'query': '/'.join(context.getPhysicalPath()[:-1])}
+        selectable_filter.criteria['path'] = thesaurus_path
+        return self.path_source(
+            closest_content(context),
+            selectable_filter=selectable_filter,
+            navigation_tree_query=self.navigation_tree_query)
+
+
 class RelatedThesaurusKeywords(RelationList):
     implements(IRelatedThesaurusKeywords)
 
     def __init__(self, **kwargs):
-        source_config = dict()
-        source_config['portal_type'] = ('dmskeyword',)
         RelationList.__init__(self,
                         value_type=RelationChoice(
                             title=u'',
-                            source=ObjPathSourceBinder(**source_config)),
+                            source=ThesaurusPathSourceBinder()),
                         **kwargs)
 

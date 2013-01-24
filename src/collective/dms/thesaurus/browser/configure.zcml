@@ -14,6 +14,11 @@
       image="thesaurus_item_icon.png"
       />
 
+  <browser:resource
+      name="thesaurus_navigation.css"
+      image="thesaurus_navigation.css"
+      />
+
   <browser:page
       for="collective.dms.thesaurus.dmskeyword.IDmsKeyword"
       name="dmskeyword.view"

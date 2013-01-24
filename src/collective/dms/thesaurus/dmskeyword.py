@@ -8,9 +8,10 @@ from zope.schema.interfaces import IList
 
 
 from z3c.form.interfaces import IFormLayer, IFieldWidget, IMultiWidget
-from z3c.form.widget import FieldWidget, MultiWidget
+from z3c.form.widget import FieldWidget
 
 # #from plone.dexterity.content import Container
+from plone.z3cform.textlines import TextLinesFieldWidget
 from plone.dexterity.schema import DexteritySchemaPolicy
 from plone.dexterity.content import Item
 
@@ -34,7 +35,7 @@ class Equivalences(schema.List):
 @adapter(IEquivalences, IFormLayer)
 @implementer(IFieldWidget)
 def EquivalencesWidget(field, request):
-    return FieldWidget(field, MultiWidget(request))
+    return FieldWidget(field, TextLinesFieldWidget(request))
 
 
 class IDmsKeyword(model.Schema):

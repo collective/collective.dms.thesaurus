@@ -78,3 +78,23 @@ Puis un widget de la forme:
 +--------+--------------+--------+
 |              [cancel] [choose] |
 +--------+--------------+--------+
+
+
+TODO
+-----
+
+- revoir le widget des équivalences
+
+- terminer la vue pour les kws
+  - equivalences sous forme de liste
+  - virer les doublons dans les RT
+  - afficher les enfants
+  - affiner la feuille de style
+
+- vocabulaire pour autocomplete
+    cf vocab pour les contacts
+    + exploiter ce vocab dans une vue pour le thesaurus
+
+- fichier d'import : perso.entrouvert.org/~fred/thesaurus.json
+  page d'import : <thesaurus_url>/import_json
+  Le fichier doit se trouver sur /tmp/thesaurus.json

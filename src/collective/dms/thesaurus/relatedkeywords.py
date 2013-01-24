@@ -21,8 +21,7 @@ class IRelatedThesaurusKeywords(IRelationList):
 class RelatedThesaurusKeywordsWidget(MultiContentTreeWidget):
     display_template = ViewPageTemplateFile('related-thesaurus-keywords-display.pt')
     
-    def __init__(self, display_backrefs, request):
-        self.display_backrefs = display_backrefs
+    def __init__(self, request):
         super(RelatedThesaurusKeywordsWidget, self).__init__(request)
 
     def get_url(self, v):
@@ -34,12 +33,25 @@ class RelatedThesaurusKeywordsWidget(MultiContentTreeWidget):
 
     def tuples(self):
         refs = [(self.get_url(x), self.get_label(x)) for x in self.value]
+        intids = getUtility(IIntIds)
+        catalog = getUtility(ICatalog)
+        try:
+            doc_intid = intids.getId(self.context)
+        except KeyError:
+            pass
+        else:
+            for ref in catalog.findRelations(
+                    {'to_id': doc_intid, 'from_attribute': 'related'}):
+                tp = (ref.from_path, ref.from_object.Title())
+                if tp not in refs:
+                    refs.append(tp)
         return refs
+
 
 @adapter(IRelatedThesaurusKeywords, IFormLayer)
 @implementer(IFieldWidget)
 def RelatedThesaurusKeywordsFieldWidget(field, request):
-    return FieldWidget(field, RelatedThesaurusKeywordsWidget(field.display_backrefs, request))
+    return FieldWidget(field, RelatedThesaurusKeywordsWidget(request))
 
 class ThesaurusPathSourceBinder(ObjPathSourceBinder):
 

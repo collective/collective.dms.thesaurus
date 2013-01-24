@@ -10,43 +10,42 @@
 <metal:main fill-slot="content-core">
   <metal:content-core define-macro="content-core">
 
-    <table id="dmskeywords-navigation">
-      <tr>
-        <td>
-          <tal:parents define="widget python:view.widgets.get('broader')">
-              <div class="field" tal:condition="python:widget.__name__ not in ('IBasic.title', 'IBasic.description', 'title', 'description',)">
-                  <label tal:content="widget/label" />
-                  <br />
-                  <div tal:content="structure widget/render" />
-              </div>
-          </tal:parents>
-        </td>
-        <td>
-          <tal:equivs define="widget python:view.widgets.get('equivs')">
-              <div class="field" tal:condition="python:widget.__name__ not in ('IBasic.title', 'IBasic.description', 'title', 'description',)">
-                  <label tal:content="widget/label" />
-                  <br />
-                  <div tal:content="structure widget/render" />
-              </div>
-          </tal:equivs>
-
-          <tal:parents define="widget python:view.widgets.get('related')">
-              <div class="field" tal:condition="python:widget.__name__ not in ('IBasic.title', 'IBasic.description', 'title', 'description',)">
-                  <label tal:content="widget/label" />
-                  <br />
-                  <div tal:content="structure widget/render" />
-              </div>
-          </tal:parents>
-        </td>
-        <td>
-            <div class="field">
-                <label tal:content="string:NT (Narrower Term)" />
+    <div id="dmskeywords-navigation">
+      <div id="dmskeywords-navigation-left">
+        <tal:parents define="widget python:view.widgets.get('broader')">
+            <div class="field" tal:condition="python:widget.__name__ not in ('IBasic.title', 'IBasic.description', 'title', 'description',)">
+                <label tal:content="widget/label" />
                 <br />
-                <div tal:content="string:content here" />
+                <div tal:content="structure widget/render" />
             </div>
-        </td>
-      </tr>
-    </table>
+        </tal:parents>
+      </div>
+      <div id="dmskeywords-navigation-center">
+        <tal:equivs define="widget python:view.widgets.get('equivs')">
+            <div class="field" tal:condition="python:widget.__name__ not in ('IBasic.title', 'IBasic.description', 'title', 'description',)">
+                <label tal:content="widget/label" />
+                <br />
+                <div tal:content="structure widget/render" />
+            </div>
+        </tal:equivs>
+
+        <tal:parents define="widget python:view.widgets.get('related')">
+            <div class="field" tal:condition="python:widget.__name__ not in ('IBasic.title', 'IBasic.description', 'title', 'description',)">
+                <label tal:content="widget/label" />
+                <br />
+                <div tal:content="structure widget/render" />
+            </div>
+        </tal:parents>
+      </div>
+
+      <div id="dmskeywords-navigation-right">
+        <div class="field">
+            <label tal:content="string:NT (Narrower Term)" />
+            <br />
+            <div tal:content="string:content here" />
+        </div>
+      </div>
+    </div>
 
   </metal:content-core>
 </metal:main>

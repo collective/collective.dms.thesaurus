@@ -18,6 +18,8 @@
   <include package="." />
   <include package=".browser" />
 
+  <adapter factory=".relatedkeywords.RelatedThesaurusKeywordsFieldWidget" />
+
   <genericsetup:registerProfile
       name="default"
       title="collective.dms.thesaurus"

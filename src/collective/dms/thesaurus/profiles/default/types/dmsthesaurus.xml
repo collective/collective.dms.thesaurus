@@ -3,7 +3,7 @@
    xmlns:i18n="http://xml.zope.org/namespaces/i18n">
  <property name="title" i18n:translate="">Thesaurus</property>
  <property name="description" i18n:translate="">DMS Thesaurus</property>
- <property name="icon_expr">string:${portal_url}/++resource++folder_icon.png</property>
+ <property name="icon_expr">string:${portal_url}/++resource++thesaurus_icon.png</property>
  <property name="factory">dmsthesaurus</property>
  <property name="add_view_expr">string:${folder_url}/++add++dmsthesaurus</property>
  <property name="link_target"></property>

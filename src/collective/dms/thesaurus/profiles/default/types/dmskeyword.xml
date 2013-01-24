@@ -3,24 +3,25 @@
    xmlns:i18n="http://xml.zope.org/namespaces/i18n">
  <property name="title" i18n:translate="">Keyword</property>
  <property name="description" i18n:translate="">DMS Keyword</property>
- <property name="icon_expr">string:${portal_url}/++resource++folder_icon.png</property>
+ <property name="icon_expr">string:${portal_url}/++resource++thesaurus_item_icon.png</property>
  <property name="factory">dmskeyword</property>
  <property name="add_view_expr">string:${folder_url}/++add++dmskeyword</property>
  <property name="link_target"></property>
  <property name="immediate_view">view</property>
- <property name="global_allow">True</property>
+ <property name="global_allow">False</property>
  <property name="filter_content_types">True</property>
  <property name="allowed_content_types"/>
  <property name="allow_discussion">False</property>
- <property name="default_view">view</property>
+ <property name="default_view">@@dmskeyword.view</property>
  <property name="view_methods">
   <element value="view"/>
+  <element value="@@dmskeyword.view"/>
  </property>
  <property name="default_view_fallback">False</property>
  <property name="add_permission">cmf.AddPortalContent</property>
  <property name="klass">collective.dms.thesaurus.dmskeyword.DmsKeyword</property>
  <property name="behaviors">
-  <element value="plone.app.content.interfaces.INameFromTitle"/>
+  <!-- element value="plone.app.content.interfaces.INameFromTitle"/ -->
   <element value="plone.app.dexterity.behaviors.metadata.IDublinCore"/>
   <element value="collective.dexteritytextindexer.behavior.IDexterityTextIndexer" />
 </property>

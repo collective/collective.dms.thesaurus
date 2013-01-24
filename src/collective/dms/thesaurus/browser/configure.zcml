@@ -1,0 +1,25 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    i18n_domain="collective.dms.thesaurus">
+
+  <browser:resource
+      name="thesaurus_icon.png"
+      image="thesaurus_icon.png"
+      />
+
+  <browser:resource
+      name="thesaurus_item_icon.png"
+      image="thesaurus_item_icon.png"
+      />
+
+  <browser:page
+      for="collective.dms.thesaurus.dmskeyword.IDmsKeyword"
+      name="dmskeyword.view"
+      class="plone.dexterity.browser.view.DefaultView"
+      template="dmskeyword_view.pt"
+      permission="zope2.View"
+      />
+
+</configure>

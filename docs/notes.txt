@@ -34,10 +34,20 @@ Résumé :
 - champ ID
 - champ Titre (dénomination du KW)
 - champ Description (NH)
+
 - champ (multi texte) EQ/UF
+
 - champ Enfant (relation -> NT)
 - champ RT (relation)
-- champ NH
+
+Relation parent/enfant :
+Je choisis de placer la relation dans le sens suivant:
+l'enfant stocke la relation 'parent' dans 1 de ses champs.
+La raison est que lorsque l'on crée un nouvel objet, c'est souvent pour
+l'ajouter à partir d'un point d'accroche existant (un parent).
+Il est plus facil de stocker la relation dans l'objet créé que de
+remonter à l'objet parent pour créer la nouvelle relation une fois
+l'objet enfant lui-même créé.
 
 
 Le widget

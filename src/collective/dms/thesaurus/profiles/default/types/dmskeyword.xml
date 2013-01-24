@@ -21,7 +21,7 @@
  <property name="add_permission">cmf.AddPortalContent</property>
  <property name="klass">collective.dms.thesaurus.dmskeyword.DmsKeyword</property>
  <property name="behaviors">
-  <!-- element value="plone.app.content.interfaces.INameFromTitle"/ -->
+  <element value="plone.app.content.interfaces.INameFromTitle"/>
   <element value="plone.app.dexterity.behaviors.metadata.IDublinCore"/>
   <element value="collective.dexteritytextindexer.behavior.IDexterityTextIndexer" />
 </property>

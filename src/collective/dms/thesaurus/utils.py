@@ -30,7 +30,7 @@ class ImportJson(BrowserView):
                 except KeyError:
                     self.intids.register(object)
             object.title = term.get('title')
-            object.note = term.get('note')
+            object.description = term.get('note')
             object.equivs = term.get('equivalents')
             term_intids[term_id] = self.intids.getId(object)
 

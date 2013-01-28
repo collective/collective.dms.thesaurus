@@ -10,60 +10,61 @@
 <metal:main fill-slot="main">
 
     <div id="dmskeywords-navigation">
-      <div id="dmskeywords-navigation-broader">
-        <tal:parents define="widget python:view.widgets.get('broader')">
-            <div class="field" tal:condition="python:widget.__name__ not in ('IBasic.title', 'IBasic.description', 'title', 'description',)">
-                <label tal:content="widget/label" />
-                <br />
-                <div tal:content="structure widget/render" />
-            </div>
-        </tal:parents>
-      </div>
 
-      <div id="dmskeywords-navigation-focus">
+      <tal:broader define="widget python:view.widgets.get('broader')">
+          <div id="dmskeywords-navigation-broader"
+              class="field"
+              tal:condition="python:widget.__name__ not in ('IBasic.title', 'IBasic.description', 'title', 'description',)">
+              <label tal:content="widget/label" />
+              <br />
+              <div tal:content="structure widget/render" />
+          </div>
+      </tal:broader>
 
-        <div >
-          <tal:parents define="widget python:view.widgets.get('related')">
-              <div id="dmskeywords-navigation-related"
-                   class="field"
-                   tal:condition="python:widget.__name__ not in ('IBasic.title', 'IBasic.description', 'title', 'description',)">
-                  <label tal:content="widget/label" />
-                  <br />
-                  <div tal:content="structure widget/render" />
-              </div>
-          </tal:parents>
-        </div>
+      <div id="dmskeywords-navigation-middle">
 
-        <h1 class="documentFirstHeading" tal:content="context/Title" /> 
-        <!-- p class="documentDescription" tal:content="context/Description" /-->
-        <div tal:replace="structure provider:plone.belowcontenttitle" />
-
-        <tal:equivs define="widget python:view.widgets.get('equivs')">
-            <div class="field" tal:condition="python:widget.__name__ not in ('IBasic.title', 'IBasic.description', 'title', 'description',)">
-                <label tal:content="widget/label" />
-                <br />
-                <div tal:content="structure widget/render" />
-            </div>
-        </tal:equivs>
-
-      </div>
-
-      <div id="dmskeywords-navigation-children">
-        <div class="field">
-            <label tal:content="string:NT (Narrower Terms)" />
+        <tal:related define="widget python:view.widgets.get('related')">
+          <div id="dmskeywords-navigation-related"
+               class="field"
+               tal:condition="python:widget.__name__ not in ('IBasic.title', 'IBasic.description', 'title', 'description',)">
+            <label tal:content="widget/label" />
             <br />
-            <ul id="" class=""
-                  tal:attributes="id string:form-widgets-children;
-                                  class string:contenttree-widget narrowerthesauruskeywords-field;
-                                  "><li tal:repeat="value view/children"
-                ><a class="selected-option"
-                    href="#"
-                    tal:content="value/label"
-                    tal:attributes="href value/url"
-                /></li
-            ></ul>
+            <div tal:content="structure widget/render" />
+          </div>
+        </tal:related>
+
+        <div id="dmskeywords-navigation-focus">
+          <h1 class="documentFirstHeading" tal:content="context/Title" /> 
+          <!-- p class="documentDescription" tal:content="context/Description" /-->
+          <div tal:replace="structure provider:plone.belowcontenttitle" />
+
+          <tal:equivs define="widget python:view.widgets.get('equivs')">
+            <div class="field"
+                 tal:condition="python:widget.__name__ not in ('IBasic.title', 'IBasic.description', 'title', 'description',)">
+              <label tal:content="widget/label" />
+              <br />
+              <div tal:content="structure widget/render" />
+            </div>
+          </tal:equivs>
         </div>
+
       </div>
+
+      <div class="field" id="dmskeywords-navigation-narrower">
+          <label tal:content="string:NT (Narrower Terms)" />
+          <br />
+          <ul id="" class=""
+                tal:attributes="id string:form-widgets-children;
+                                class string:contenttree-widget narrowerthesauruskeywords-field;
+                                "><li tal:repeat="value view/children"
+              ><a class="selected-option"
+                  href="#"
+                  tal:content="value/label"
+                  tal:attributes="href value/url"
+              /></li
+          ></ul>
+      </div>
+
     </div>
 
 </metal:main>

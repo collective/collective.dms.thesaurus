@@ -2,6 +2,16 @@
   margin-top: 1em;
 }
 
+#dmskeywords-navigation-focus {
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+#dmskeywords-navigation-related {
+  padding: 0, 1em, 0, 1em;
+  float: right;
+}
+
 #dmskeywords-navigation-left {
   float: left;
   padding-right: 1em;

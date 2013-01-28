@@ -1,17 +1,8 @@
 #import datetime
-from zope.interface import implements, implementer
-#from zope.component import adapts
-from zope.component import adapter
+from zope.interface import implements
 
 from zope import schema
-from zope.schema.interfaces import IList
 
-
-from z3c.form.interfaces import IFormLayer, IFieldWidget, IMultiWidget
-from z3c.form.widget import FieldWidget
-
-# #from plone.dexterity.content import Container
-from plone.z3cform.textlines import TextLinesFieldWidget
 from plone.dexterity.schema import DexteritySchemaPolicy
 from plone.dexterity.content import Item
 
@@ -21,9 +12,6 @@ from . import _
 from .relatedkeywords import RelatedThesaurusKeywords
 from .broaderkeywords import BroaderThesaurusKeywords
 from .equivalences import ThesaurusKeywordEquivalences
-
-#from plone.autoform import directives as form
-#from plone.directives.form import default_value
 
 class IDmsKeyword(model.Schema):
     """ """
@@ -70,5 +58,4 @@ class DmsKeywordSchemaPolicy(DexteritySchemaPolicy):
 
     def bases(self, schemaName, tree):
         return (IDmsKeyword, )
-
 

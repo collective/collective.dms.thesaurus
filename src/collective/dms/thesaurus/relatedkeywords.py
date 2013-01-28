@@ -21,37 +21,60 @@ class IRelatedThesaurusKeywords(IRelationList):
 class RelatedThesaurusKeywordsWidget(MultiContentTreeWidget):
     display_template = ViewPageTemplateFile('related-thesaurus-keywords-display.pt')
     
-    def __init__(self, request):
+    def __init__(self, request, from_attribute='related', display_backrefs=False):
+        self.from_attribute = from_attribute
+        self.display_backrefs = display_backrefs
         super(RelatedThesaurusKeywordsWidget, self).__init__(request)
 
     def get_url(self, v):
         return v
 
-    def get_label(self, v):
-        term = self.terms.getTermByToken(v)
-        return term.title
+    def get_term(self, v):
+        return self.terms.getTermByToken(v)
 
-    def tuples(self):
-        refs = [(self.get_url(x), self.get_label(x)) for x in self.value]
-        intids = getUtility(IIntIds)
-        catalog = getUtility(ICatalog)
-        try:
-            doc_intid = intids.getId(self.context)
-        except KeyError:
-            pass
-        else:
-            for ref in catalog.findRelations(
-                    {'to_id': doc_intid, 'from_attribute': 'related'}):
-                tp = (ref.from_path, ref.from_object.Title())
-                if tp not in refs:
-                    refs.append(tp)
+    def get_label(self, v):
+        return self.get_term(v).title
+
+    def get_hn(self, v):
+        return self.get_term(v).value.historical_note
+
+    def get_sn(self, v):
+        return self.get_term(v).value.scope_note
+
+    def dictvalues(self):
+        refs = [dict(
+            url=self.get_url(x),
+            label=self.get_label(x),
+            hn=self.get_hn(x),
+            sn=self.get_sn(x),
+            ) for x in self.value]
+        if self.display_backrefs:
+            intids = getUtility(IIntIds)
+            catalog = getUtility(ICatalog)
+            try:
+                doc_intid = intids.getId(self.context)
+            except KeyError:
+                pass
+            else:
+                for ref in catalog.findRelations(
+                        {'to_id': doc_intid,
+                         'from_attribute': self.from_attribute}):
+                    tp = dict(
+                        url=ref.from_path,
+                        label=ref.from_object.Title(),
+                        hn=ref.from_object.historical_note,
+                        sn=ref.from_object.scope_note
+                        )
+                    if tp not in refs:
+                        refs.append(tp)
         return refs
 
 
 @adapter(IRelatedThesaurusKeywords, IFormLayer)
 @implementer(IFieldWidget)
 def RelatedThesaurusKeywordsFieldWidget(field, request):
-    return FieldWidget(field, RelatedThesaurusKeywordsWidget(request))
+    return FieldWidget(field, RelatedThesaurusKeywordsWidget(
+                request, display_backrefs=field.display_backrefs))
 
 class ThesaurusPathSourceBinder(ObjPathSourceBinder):
 
@@ -69,7 +92,8 @@ class ThesaurusPathSourceBinder(ObjPathSourceBinder):
 class RelatedThesaurusKeywords(RelationList):
     implements(IRelatedThesaurusKeywords)
 
-    def __init__(self, **kwargs):
+    def __init__(self, display_backrefs=False, **kwargs):
+        self.display_backrefs = display_backrefs
         RelationList.__init__(self,
                         value_type=RelationChoice(
                             title=u'',

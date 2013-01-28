@@ -3,6 +3,7 @@
   <version>0001</version>
   <dependencies>
     <dependency>profile-plone.app.dexterity:default</dependency>
+    <dependency>profile-plone.app.intid:default</dependency>
     <dependency>profile-collective.dms.thesaurus:default</dependency>
   </dependencies>
 </metadata>

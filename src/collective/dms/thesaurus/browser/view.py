@@ -26,7 +26,12 @@ class DmsKeywordView(DefaultView):
         else:
             for ref in catalog.findRelations(
                     {'to_id': doc_intid, 'from_attribute': 'broader'}):
-                tp = (ref.from_path, ref.from_object.Title())
+                tp = dict(
+                    url=ref.from_path,
+                    label=ref.from_object.Title(),
+                    hn=ref.from_object.historical_note,
+                    sn=ref.from_object.scope_note
+                    )
                 if tp not in value:
                     value.append(tp)
         return value

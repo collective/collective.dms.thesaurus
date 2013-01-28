@@ -19,6 +19,7 @@ from plone.supermodel import model
 
 from . import _
 from .relatedkeywords import RelatedThesaurusKeywords
+from .broaderkeywords import BroaderThesaurusKeywords
 from .equivalences import ThesaurusKeywordEquivalences
 
 #from plone.autoform import directives as form
@@ -27,14 +28,14 @@ from .equivalences import ThesaurusKeywordEquivalences
 class IDmsKeyword(model.Schema):
     """ """
 
-    # XXX: Ungly widget that needs to be replaced
+    # EQ: equivalences
     equivs = ThesaurusKeywordEquivalences(
         title=u'EQ (Equivalences)',
         required=False,
         )
 
     # BT: broader term
-    broader = RelatedThesaurusKeywords(
+    broader = BroaderThesaurusKeywords(
         title=_(u"BT (Broader Terms)"),
         required=False,
         )
@@ -42,6 +43,19 @@ class IDmsKeyword(model.Schema):
     # RT: related term
     related = RelatedThesaurusKeywords(
         title=_(u"RT (Related Terms)"),
+        required=False,
+        display_backrefs=True
+        )
+
+    # HN: historical note
+    historical_note = schema.Text(
+        title=_(u"HN (Historical Note)"),
+        required=False,
+        )
+
+    # SN: scope note
+    scope_note = schema.Text(
+        title=_(u"SN (Scope Note)"),
         required=False,
         )
 

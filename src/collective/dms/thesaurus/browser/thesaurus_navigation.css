@@ -1,24 +1,31 @@
-#dmskeywords-navigation {
-  margin-top: 1em;
+/* @override http://localhost:9080/Plone/portal_css/Sunburst%20Theme/++resource++thesaurus_navigation.css */
+
+#dmskeywords-navigation-middle {
+  margin: 0;
+  padding: 1em 0;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+#dmskeywords-navigation-broader,
+#dmskeywords-navigation-narrower,
+#dmskeywords-navigation-equivs,
+#dmskeywords-navigation-related {
+  margin: 0;
+  padding: 0;
+  padding-top: 10px;
 }
 
 #dmskeywords-navigation-broader {
-  border-bottom: 1px solid black;
+  padding-bottom: 1em;
 }
 
 #dmskeywords-navigation-narrower {
-  border-top: 1px solid black;
+  padding-top: 1em;
 }
 
-#dmskeywords-navigation-focus {
-  padding: 0, 1em, 0, 1em;
-  display: inline;
-}
 
-#dmskeywords-navigation-related {
-  float: right;
-  display: inline;
-}
+
+
 
 
 

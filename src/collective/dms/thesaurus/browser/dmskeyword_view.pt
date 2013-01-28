@@ -23,6 +23,20 @@
 
       <div id="dmskeywords-navigation-middle">
 
+        <h1 class="documentFirstHeading" tal:content="context/Title" /> 
+        <!-- p class="documentDescription" tal:content="context/Description" /-->
+        <div tal:replace="structure provider:plone.belowcontenttitle" />
+
+        <tal:equivs define="widget python:view.widgets.get('equivs')">
+          <div id="dmskeywords-navigation-equivs"
+               class="field"
+               tal:condition="python:widget.__name__ not in ('IBasic.title', 'IBasic.description', 'title', 'description',)">
+            <label tal:content="widget/label" />
+            <br />
+            <div tal:content="structure widget/render" />
+          </div>
+        </tal:equivs>
+
         <tal:related define="widget python:view.widgets.get('related')">
           <div id="dmskeywords-navigation-related"
                class="field"
@@ -32,21 +46,6 @@
             <div tal:content="structure widget/render" />
           </div>
         </tal:related>
-
-        <div id="dmskeywords-navigation-focus">
-          <h1 class="documentFirstHeading" tal:content="context/Title" /> 
-          <!-- p class="documentDescription" tal:content="context/Description" /-->
-          <div tal:replace="structure provider:plone.belowcontenttitle" />
-
-          <tal:equivs define="widget python:view.widgets.get('equivs')">
-            <div class="field"
-                 tal:condition="python:widget.__name__ not in ('IBasic.title', 'IBasic.description', 'title', 'description',)">
-              <label tal:content="widget/label" />
-              <br />
-              <div tal:content="structure widget/render" />
-            </div>
-          </tal:equivs>
-        </div>
 
       </div>
 

@@ -18,6 +18,8 @@
   <include package="." />
   <include package=".browser" />
 
+  <include file="widgets.zcml" />
+
   <adapter factory=".relatedkeywords.RelatedThesaurusKeywordsFieldWidget" />
   <adapter factory=".broaderkeywords.BroaderThesaurusKeywordsFieldWidget" />
   <adapter factory=".equivalences.ThesaurusKeywordEquivalencesFieldWidget" />

@@ -52,6 +52,7 @@
       <div class="field" id="dmskeywords-navigation-narrower">
           <label tal:content="string:NT (Narrower Terms)" />
           <br />
+          <tal:list condition="view/children">
           <ul id="" class=""
                 tal:attributes="id string:form-widgets-children;
                                 class string:contenttree-widget narrowerthesauruskeywords-field;
@@ -61,7 +62,8 @@
                   tal:content="value/label"
                   tal:attributes="href value/url"
               /></li
-          ></ul>
+          ></ul></tal:list>
+          <em tal:condition="not:view/children">(nothing)</em>
       </div>
 
     </div>

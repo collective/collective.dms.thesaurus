@@ -1,4 +1,5 @@
 <ul id="" class=""
+      tal:condition="view/dictvalues"
       tal:attributes="id view/id;
                       class view/klass;
                       style view/style;
@@ -21,3 +22,4 @@
         tal:attributes="href value/url"
     /></li
 ></ul>
+<em tal:condition="not:view/dictvalues">(nothing)</em>

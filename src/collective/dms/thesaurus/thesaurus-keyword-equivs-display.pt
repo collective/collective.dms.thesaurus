@@ -1,4 +1,5 @@
-<span id="" class=""
+<ul id="" class=""
+      tal:condition="view/terms"
       tal:attributes="id view/id;
                       class view/klass;
                       style view/style;
@@ -13,9 +14,10 @@
                       onmouseout view/onmouseout;
                       onkeypress view/onkeypress;
                       onkeydown view/onkeydown;
-                      onkeyup view/onkeyup"><ul><tal:block
+                      onkeyup view/onkeyup"><li
     tal:repeat="value view/terms"
-    ><span class=""
-        tal:content="value" /></tal:block
-  ></tal:block
-></ul></span>
+      ><span class=""
+             tal:content="value" />
+  </li
+></ul>
+<em tal:condition="not:view/terms">(nothing)</em>

@@ -20,13 +20,12 @@ class IThesaurusKeywordEquivalences(IList):
     """"""
 
 class ThesaurusKeywordEquivalencesWidget(MultiWidget):
-    display_template = ViewPageTemplateFile('thesaurus-keyword-equivs-display.pt')
 
     def __init__(self, request):
         super(ThesaurusKeywordEquivalencesWidget, self).__init__(request)
 
     def terms(self):
-        return self.value.splitlines()
+        return self.value
 
 
 @adapter(IThesaurusKeywordEquivalences, IFormLayer)

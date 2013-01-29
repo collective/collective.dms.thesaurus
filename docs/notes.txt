@@ -102,5 +102,4 @@ questions pour demain
 
 - tiens, le package mailcontent n'apparait plus dans le portal_setup
 - on vire le champ description d'un kw ?
-- comment je change le widget pour les equivs, c'est zarbi le truc
 

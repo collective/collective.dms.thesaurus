@@ -2,6 +2,7 @@
     xmlns="http://namespaces.zope.org/zope"
     xmlns:grok="http://namespaces.zope.org/grok"
     xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:plone="http://namespaces.plone.org/plone"
     xmlns:i18n="http://namespaces.zope.org/i18n"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     i18n_domain="collective.dms.thesaurus">
@@ -24,13 +25,10 @@
   <adapter factory=".broaderkeywords.BroaderThesaurusKeywordsFieldWidget" />
   <adapter factory=".equivalences.ThesaurusKeywordEquivalencesFieldWidget" />
 
-  <genericsetup:registerProfile
-      name="default"
-      title="collective.dms.thesaurus"
-      directory="profiles/default"
-      description="Installs the collective.dms.thesaurus package"
-      provides="Products.GenericSetup.interfaces.EXTENSION"
-      />
+  <adapter
+    name="SearchableText"
+    factory=".indexers.dmskeyword_searchable_text"
+    />
 
   <utility
       factory=".dmskeyword.DmsKeywordSchemaPolicy"
@@ -47,6 +45,21 @@
       for="collective.dms.thesaurus.dmsthesaurus.IDmsThesaurus"
       class=".utils.ImportJson"
       permission="cmf.ManagePortal"
+      />
+
+  <plone:behavior
+      title="Thesaurus Keyword SearchableText indexer behavior"
+      description="Enables the dynamic SearchableText indexer for Thesaurus Keyword"
+      provides=".indexers.IDmsKeywordIndexer"
+      for="plone.dexterity.interfaces.IDexterityContent"
+      />
+
+  <genericsetup:registerProfile
+      name="default"
+      title="collective.dms.thesaurus"
+      directory="profiles/default"
+      description="Installs the collective.dms.thesaurus package"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
 </configure>

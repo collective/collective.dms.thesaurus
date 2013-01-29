@@ -23,19 +23,6 @@
 
       <div id="dmskeywords-navigation-middle">
 
-        <h1 class="documentFirstHeading" tal:content="context/Title" /> 
-        <p class="documentDescription">
-        <tal:equivs define="widget python:view.widgets.get('equivs')"
-                    condition="python:widget.__name__ not in ('IBasic.title', 'IBasic.description', 'title', 'description',) and widget.terms()"
-                    >[
-                    <tal:equiv-terms repeat="value widget/terms"
-                      ><span tal:content="value"
-                        /><span tal:condition="not:repeat/value/end"
-                                tal:replace="python:', '"
-                                /></tal:equiv-terms>
-                                ]</tal:equivs></p>
-        <div tal:replace="structure provider:plone.belowcontenttitle" />
-
         <dl class="portalMessage warning"
             tal:define="widget python:view.widgets.get('scope_note')"
             tal:condition="widget/value"
@@ -49,6 +36,19 @@
         ><dt tal:content="widget/label"/><dd >
           <span tal:replace="structure widget/render" />
         </dd></dl>
+
+        <h1 class="documentFirstHeading" tal:content="context/Title" /> 
+        <p class="documentDescription">
+        <tal:equivs define="widget python:view.widgets.get('equivs')"
+                    condition="python:widget.__name__ not in ('IBasic.title', 'IBasic.description', 'title', 'description',) and widget.terms()"
+                    >[
+                    <tal:equiv-terms repeat="value widget/terms"
+                      ><span tal:content="value"
+                        /><span tal:condition="not:repeat/value/end"
+                                tal:replace="python:', '"
+                                /></tal:equiv-terms>
+                                ]</tal:equivs></p>
+        <div tal:replace="structure provider:plone.belowcontenttitle" />
 
         <tal:related define="widget python:view.widgets.get('related')">
           <div id="dmskeywords-navigation-related"

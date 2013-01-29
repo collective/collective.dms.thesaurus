@@ -23,13 +23,10 @@
   padding-top: 1em;
 }
 
-
-
-
-
-
-
-
+#dmskeywords-navigation-middle h1,
+#dmskeywords-navigation-middle .documentDescription {
+  margin-bottom: 0;
+}
 
 #dmskeywords-navigation-left {
   float: left;

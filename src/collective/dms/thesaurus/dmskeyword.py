@@ -37,13 +37,13 @@ class IDmsKeyword(model.Schema):
 
     # HN: historical note
     historical_note = schema.Text(
-        title=_(u"HN (Historical Note)"),
+        title=_(u"Historical Note"),
         required=False,
         )
 
     # SN: scope note
     scope_note = schema.Text(
-        title=_(u"SN (Scope Note)"),
+        title=_(u"Scope Note"),
         required=False,
         )
 

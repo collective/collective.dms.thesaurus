@@ -90,12 +90,35 @@ Importations
 TODO
 -----
 
-- terminer la vue pour les kws
-  - affiner la feuille de style
+- finish view for kws
+  - give better visual id to broader and narrower regions
+  - better stylesheet
+
+- cleanup, move browser stuff to browser package, etc.
+
+A faire :
+
+- Assurer l'indexation des equivalents dans le searchable text
+
+- dans la vue kw: Afficher aussi les equivs de chaque kw associé
+                  + les notes hist et scope ?
+
+- Intégrer ce qu'on a fait dans de dmsdocument et créer le widget adapté
+  pour le edit (+view?) du document.
+
+- on pourrait peut-être voir si on attribue un workflow aux keywords
+  (voire même aux thésaurus, je vois pas l'intérêt pour ces conteneurs
+  qui sont de toute façons amenés à être utilisés, et ne sont pas soumis
+  à un processus éditorial)
+
+- Plein d'autres trucs, certainement, comme écrire des tests et préparer
+  l'i18n
+
 
 - vocabulaire pour autocomplete
     cf vocab pour les contacts
     + exploiter ce vocab dans une vue pour le thesaurus
+    ... mh, ça semble déjà exister
 
 questions pour demain
 ----------------------

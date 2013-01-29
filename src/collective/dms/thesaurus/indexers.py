@@ -12,14 +12,8 @@ class IDmsKeywordIndexer(Interface):
 def dmskeyword_searchable_text(obj):
     indexed_fields = []
     title = obj.Title()
-    if not isinstance(title, unicode):
-        # Title() is a CMF-style accessor, it will therefore a return a
-        # utf8-encoded bytestring; encode it back as an unicode string.
-        title = unicode(title, 'utf-8')
     indexed_fields.append(title)
-#    equivs = obj.get_equivs()
-#    for equiv in equivs:
-#        if isinstance(title, unicode):
-#            equiv = title.encode('utf-8')
-#        indexed_fields.append(equiv)
+    equivs = obj.get_equivs()
+    for equiv in equivs:
+        indexed_fields.append(equiv)
     return u' '.join(indexed_fields)

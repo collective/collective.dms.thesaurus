@@ -24,6 +24,7 @@
   <adapter factory=".relatedkeywords.RelatedThesaurusKeywordsFieldWidget" />
   <adapter factory=".broaderkeywords.BroaderThesaurusKeywordsFieldWidget" />
   <adapter factory=".equivalences.ThesaurusKeywordEquivalencesFieldWidget" />
+  <adapter factory=".field.ThesaurusKeywordsFieldWidget" />
 
   <adapter
     name="SearchableText"

@@ -16,8 +16,5 @@
                       onkeydown view/onkeydown;
                       onkeyup view/onkeyup"><li
     tal:repeat="value view/terms"
-      ><span class=""
-             tal:content="value" />
-  </li
-></ul>
-<em tal:condition="not:view/terms">(nothing)</em>
+      ><span class="" tal:content="value" /></li></ul
+><em tal:condition="not:view/terms">(nothing)</em>

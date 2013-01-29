@@ -36,6 +36,20 @@
                                 ]</tal:equivs></p>
         <div tal:replace="structure provider:plone.belowcontenttitle" />
 
+        <dl class="portalMessage warning"
+            tal:define="widget python:view.widgets.get('scope_note')"
+            tal:condition="widget/value"
+        ><dt tal:content="widget/label"/><dd >
+          <span tal:replace="structure widget/render" />
+        </dd></dl>
+
+        <dl class="portalMessage info"
+            tal:define="widget python:view.widgets.get('historical_note')"
+            tal:condition="widget/value"
+        ><dt tal:content="widget/label"/><dd >
+          <span tal:replace="structure widget/render" />
+        </dd></dl>
+
         <tal:related define="widget python:view.widgets.get('related')">
           <div id="dmskeywords-navigation-related"
                class="field"

@@ -1,7 +1,7 @@
+from five import grok
 from zope.interface import Interface
 from plone.indexer import indexer
 
-#from collective.dms.thesaurus.dmskeyword import IDmsKeyword
 
 class IDmsKeywordIndexer(Interface):
     """Dexterity behavior interface for enabling the dynamic SearchableText
@@ -11,9 +11,10 @@ class IDmsKeywordIndexer(Interface):
 @indexer(IDmsKeywordIndexer)
 def dmskeyword_searchable_text(obj):
     indexed_fields = []
-    title = obj.Title()
+    title = unicode(obj.Title(), 'utf-8')
     indexed_fields.append(title)
-    equivs = obj.get_equivs()
-    for equiv in equivs:
-        indexed_fields.append(equiv)
+    if obj.equivs:
+        indexed_fields.extend(obj.equivs)
     return u' '.join(indexed_fields)
+
+grok.global_adapter(dmskeyword_searchable_text, name='SearchableText')

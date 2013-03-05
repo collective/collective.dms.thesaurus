@@ -1,0 +1,52 @@
+<div xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:tal="http://xml.zope.org/namespaces/tal"
+     tal:omit-tag="">
+<select id="" name="" class="" tabindex="" disabled="" multiple="multiple" size="5"
+        style="display: none;"
+        tal:attributes="id view/id;
+                        name string:${view/name}:list">
+<tal:block repeat="item view/items"
+  ><option id="" value="" selected="selected"
+         tal:condition="item/selected"
+         tal:attributes="id item/id;
+                         value item/value"
+         tal:content="item/content">label</option
+  ><option id="" value=""
+         tal:condition="not:item/selected"
+         tal:attributes="id item/id;
+                         value item/value"
+         tal:content="item/content">label</option
+></tal:block>
+</select>
+<input name="field-empty-marker" type="hidden" value="1"
+       tal:attributes="name string:${view/name}-empty-marker" />
+
+<span id="" class=""><tal:block
+    tal:repeat="item view/items"
+    ><span class="selected-option"
+           tal:attributes="data-term-id item/value">
+           <span tal:content="item/content"
+    /> <span class="remove">×</span></span><tal:block condition="not:repeat/item/end">, </tal:block
+  ></tal:block
+></span>
+
+<!--script type="text/javascript" tal:content="structure view/js"></script-->
+
+<style type="text/css">
+span.selected-option {
+  border: 1px solid gray;
+  border-radius: 3px;
+  background: #eef;
+  padding: 0.5ex 1ex;
+}
+
+span.remove {
+  margin-left: 1ex;
+  background: black;
+  color: white;
+  border-radius: 3px;
+}
+</style>
+
+<button onclick="return false;">Add</button>
+</div>

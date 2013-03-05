@@ -1,0 +1,19 @@
+PFWBGED - Notes réunion avec service doc
+=========================================
+
+- Définition des termes de l'interface
+
+Equivalences entre crochet = pas suffisant
+au moins un intitulé ("employé pour")
+
+BT = termes génériques
+RT = voir aussi (termes associés)
+NT = termes spécifiques
+
+Employé pour (équivalences) (nobreak, semicolon)
+
+NA = Note d'application
+NH = Note historique
+
+nothing = /néant/
+

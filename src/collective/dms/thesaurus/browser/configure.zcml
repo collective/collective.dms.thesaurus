@@ -20,8 +20,9 @@
       />
 
   <browser:page
-      for="collective.dms.thesaurus.dmskeyword.IDmsKeyword"
       name="dmskeyword.view"
+      for="collective.dms.thesaurus.dmskeyword.IDmsKeyword"
+      layer="plone.app.z3cform.interfaces.IPloneFormLayer"
       class="collective.dms.thesaurus.browser.view.DmsKeywordView"
       template="dmskeyword_view.pt"
       permission="zope2.View"

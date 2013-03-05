@@ -9,30 +9,31 @@ from plone.dexterity.content import Item
 from plone.supermodel import model
 
 from . import _
-from .relatedkeywords import RelatedThesaurusKeywords
-from .broaderkeywords import BroaderThesaurusKeywords
-from .equivalences import ThesaurusKeywordEquivalences
+from .keywordsfield import ThesaurusKeywords
+from .equivalencesfield import ThesaurusKeywordEquivalences
 
 class IDmsKeyword(model.Schema):
     """ """
 
     # EQ: equivalences
     equivs = ThesaurusKeywordEquivalences(
-        title=u'EQ (Equivalences)',
+        title=_(u'EQ (Equivalences)'),
         required=False,
         )
 
     # BT: broader term
-    broader = BroaderThesaurusKeywords(
+    broader = ThesaurusKeywords(
         title=_(u"BT (Broader Terms)"),
         required=False,
+        vocabulary=u'dms.thesaurus.samesource'
         )
 
     # RT: related term
-    related = RelatedThesaurusKeywords(
+    related = ThesaurusKeywords(
         title=_(u"RT (Related Terms)"),
         required=False,
-        display_backrefs=True
+        display_backrefs=True,
+        vocabulary=u'dms.thesaurus.samesource'
         )
 
     # HN: historical note

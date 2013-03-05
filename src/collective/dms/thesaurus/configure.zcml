@@ -19,12 +19,9 @@
   <include package="." />
   <include package=".browser" />
 
-  <include file="widgets.zcml" />
+  <interface interface=".vocabulary.IMainThesaurus" />
 
-  <adapter factory=".relatedkeywords.RelatedThesaurusKeywordsFieldWidget" />
-  <adapter factory=".broaderkeywords.BroaderThesaurusKeywordsFieldWidget" />
-  <adapter factory=".equivalences.ThesaurusKeywordEquivalencesFieldWidget" />
-  <adapter factory=".field.ThesaurusKeywordsFieldWidget" />
+  <include file="widgets.zcml" />
 
   <adapter
     name="SearchableText"

@@ -9,12 +9,14 @@
 
 <metal:main fill-slot="main">
 
+    <h1 class="documentFirstHeading" tal:content="context/Title" /> 
+    <div tal:replace="structure provider:plone.belowcontenttitle" />
+
     <div id="dmskeywords-navigation">
 
       <tal:broader define="widget python:view.widgets.get('broader')">
-          <div id="dmskeywords-navigation-broader"
-              class="field"
-              tal:condition="python:widget.__name__ not in ('IBasic.title', 'IBasic.description', 'title', 'description',)">
+          <div id="dmskeywords-navigation-broader-field"
+              class="field">
               <label tal:content="widget/label" />
               <br />
               <div tal:content="structure widget/render" />
@@ -22,6 +24,18 @@
       </tal:broader>
 
       <div id="dmskeywords-navigation-middle">
+
+        <h1 class="documentFirstHeading" tal:content="context/Title" /> 
+        <p class="documentDescription">
+        <tal:equivs define="widget python:view.widgets.get('equivs')"
+                    condition="python:widget.__name__ not in ('IBasic.title', 'IBasic.description', 'title', 'description',) and widget.terms()"
+                    >[
+                    <tal:equiv-terms repeat="value widget/terms"
+                      ><span tal:content="value"
+                        /><span tal:condition="not:repeat/value/end"
+                                tal:replace="python:', '"
+                                /></tal:equiv-terms>
+                                ]</tal:equivs></p>
 
         <dl class="portalMessage warning"
             tal:define="widget python:view.widgets.get('scope_note')"
@@ -37,32 +51,19 @@
           <span tal:replace="structure widget/render" />
         </dd></dl>
 
-        <h1 class="documentFirstHeading" tal:content="context/Title" /> 
-        <p class="documentDescription">
-        <tal:equivs define="widget python:view.widgets.get('equivs')"
-                    condition="python:widget.__name__ not in ('IBasic.title', 'IBasic.description', 'title', 'description',) and widget.terms()"
-                    >[
-                    <tal:equiv-terms repeat="value widget/terms"
-                      ><span tal:content="value"
-                        /><span tal:condition="not:repeat/value/end"
-                                tal:replace="python:', '"
-                                /></tal:equiv-terms>
-                                ]</tal:equivs></p>
-        <div tal:replace="structure provider:plone.belowcontenttitle" />
 
         <tal:related define="widget python:view.widgets.get('related')">
-          <div id="dmskeywords-navigation-related"
-               class="field"
-               tal:condition="python:widget.__name__ not in ('IBasic.title', 'IBasic.description', 'title', 'description',)">
-            <label tal:content="widget/label" />
-            <br />
-            <div tal:content="structure widget/render" />
-          </div>
+            <div id="dmskeywords-navigation-related-field"
+                class="field">
+                <label tal:content="widget/label" />
+                <br />
+                <div tal:content="structure widget/render" />
+            </div>
         </tal:related>
 
       </div>
 
-      <div class="field" id="dmskeywords-navigation-narrower">
+      <div class="field" id="dmskeywords-navigation-narrower-field">
           <label tal:content="string:NT (Narrower Terms)" />
           <br />
           <tal:list condition="view/children">

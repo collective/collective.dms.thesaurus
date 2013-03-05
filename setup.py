@@ -17,7 +17,7 @@ long_description = (
 
 setup(name='collective.dms.thesaurus',
       version=version,
-      description="Mail content type for document management system",
+      description="Thesaurus based keywords for Plone",
       long_description=long_description,
       classifiers=[
         "Environment :: Web Environment",
@@ -42,8 +42,9 @@ setup(name='collective.dms.thesaurus',
       install_requires=[
           'setuptools',
           'plone.app.dexterity',
-          'plone.directives.form',
-          'collective.contact.core',
+          #'plone.directives.form',
+          #'collective.contact.core',
+          'collective.dms.thesauruswidget',
           'five.grok',
       ],
       extras_require={

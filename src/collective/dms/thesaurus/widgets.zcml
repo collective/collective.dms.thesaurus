@@ -3,11 +3,30 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     xmlns:z3c="http://namespaces.zope.org/z3c">
 
-  <z3c:widgetTemplate
-      mode="display"
-      widget=".equivalences.ThesaurusKeywordEquivalencesWidget"
-      layer="z3c.form.interfaces.IFormLayer"
-      template="thesaurus-keyword-equivs-display.pt"
-      />
+    <!-- thesaurus keywords widget, used in other types schema -->
+    <adapter factory=".keywordsfield.ThesaurusKeywordsFieldWidget"/>
+
+    <z3c:widgetTemplate
+       mode="display"
+       widget=".keywordsfield.IThesaurusKeywordsWidget"
+       layer="z3c.form.interfaces.IFormLayer"
+       template="thesauruskeywords_display.pt"/>
+
+    <z3c:widgetTemplate
+       mode="input"
+       widget=".keywordsfield.IThesaurusKeywordsWidget"
+       layer="z3c.form.interfaces.IFormLayer"
+       template="thesauruskeywords_input.pt"/>
+
+    <!-- keyword equivalences widget, used in keyword schema -->
+    <adapter factory=".equivalencesfield.ThesaurusKeywordEquivalencesFieldWidget" />
+
+    <z3c:widgetTemplate
+        mode="display"
+        widget=".equivalencesfield.ThesaurusKeywordEquivalencesWidget"
+        layer="z3c.form.interfaces.IFormLayer"
+        template="thesaurus-keyword-equivs-display.pt"
+        />
+
 
 </configure>

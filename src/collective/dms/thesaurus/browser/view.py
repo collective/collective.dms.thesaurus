@@ -16,6 +16,8 @@ class DmsKeywordView(DefaultView):
 
     @property
     def children(self):
+        return []
+        """
         intids = getUtility(IIntIds)
         catalog = getUtility(ICatalog)
         value = []
@@ -36,3 +38,4 @@ class DmsKeywordView(DefaultView):
                     value.append(tp)
         return value
 
+        """

@@ -26,11 +26,13 @@
     ><span class="selected-option"
            tal:attributes="data-term-id item/value">
            <span tal:content="item/content"
-    /> <span class="remove">×</span></span><tal:block condition="not:repeat/item/end">, </tal:block
+    /> <span class="remove">×</span></span
+    ><tal:block condition="not:repeat/item/end">, </tal:block
   ></tal:block
 ></span>
 
-<!--script type="text/javascript" tal:content="structure view/js"></script-->
+<a href="#" class="kw_add_link">Add keyword</a>
+<script type="text/javascript" tal:content="structure view/js"></script>
 
 <style type="text/css">
 span.selected-option {
@@ -48,5 +50,4 @@ span.remove {
 }
 </style>
 
-<button onclick="return false;">Add</button>
 </div>

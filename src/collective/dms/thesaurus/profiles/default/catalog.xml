@@ -1,5 +1,11 @@
 <?xml version="1.0"?>
 <object name="portal_catalog" meta_type="Plone Catalog Tool">
- <column value="historical_note"/>
- <column value="scope_note"/>
+ <column value="historical_note" />
+ <column value="scope_note" />
+ <index name="broaderThesaurusKeywords" meta_type="KeywordIndex">
+  <indexed_attr value="broader" />
+ </index>
+ <index name="relatedThesaurusKeywords" meta_type="KeywordIndex">
+  <indexed_attr value="related" />
+ </index>
 </object>

@@ -30,10 +30,6 @@ class ImportJson(BrowserView):
                                    title=term.get('title'))
                 object = getattr(self.context, term_id)
                 notify(ObjectAddedEvent(object))
-                #try:
-                #    term_intids[term_id] = self.intids.getId(object)
-                #except KeyError:
-                #    self.intids.register(object)
             object.title = term.get('title')
             object.historical_note = term.get('historical_note')
             object.scope_note = term.get('scope_note')

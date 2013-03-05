@@ -5,7 +5,7 @@ from plone.indexer import indexer
 
 class IDmsKeywordIndexer(Interface):
     """Dexterity behavior interface for enabling the dynamic SearchableText
-       indexer on Document objecgs."""
+       indexer on Document objects."""
 
 
 @indexer(IDmsKeywordIndexer)

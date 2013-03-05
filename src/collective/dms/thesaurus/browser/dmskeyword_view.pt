@@ -52,14 +52,21 @@
         </dd></dl>
 
 
-        <tal:related define="widget python:view.widgets.get('related')">
-            <div id="dmskeywords-navigation-related-field"
-                class="field">
-                <label tal:content="widget/label" />
-                <br />
-                <div tal:content="structure widget/render" />
-            </div>
-        </tal:related>
+      <div class="field" id="dmskeywords-navigation-related-field">
+          <label tal:content="string:RT (Related Terms)" />
+          <br />
+          <tal:list condition="view/related">
+          <ul id="" class=""
+                tal:attributes="id string:form-widgets-related;
+                                class string:contenttree-widget relatedthesauruskeywords-field;
+                                "><li tal:repeat="value view/related"
+              ><a href="#"
+                  tal:content="value/label"
+                  tal:attributes="href value/url"
+              /></li
+          ></ul></tal:list>
+          <em tal:condition="not:view/related">none</em>
+      </div>
 
       </div>
 
@@ -71,13 +78,12 @@
                 tal:attributes="id string:form-widgets-children;
                                 class string:contenttree-widget narrowerthesauruskeywords-field;
                                 "><li tal:repeat="value view/children"
-              ><a class="selected-option"
-                  href="#"
+              ><a href="#"
                   tal:content="value/label"
                   tal:attributes="href value/url"
               /></li
           ></ul></tal:list>
-          <em tal:condition="not:view/children">(nothing)</em>
+          <em tal:condition="not:view/children">none</em>
       </div>
 
     </div>

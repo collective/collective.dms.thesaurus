@@ -14,12 +14,21 @@ from . import _
 #from plone.autoform import directives as form
 #from plone.directives.form import default_value
 
+class NoThesaurusFound(Exception):
+    """No thesaurus found"""
+
+
 class IDmsThesaurus(model.Schema):
     """ """
 
 class DmsThesaurus(Container):
     """ """
     implements(IDmsThesaurus)
+
+    @property
+    def nav_entry_points(self):
+        entry_ids = ["001157243"]
+        return entry_ids
 
 
 class DmsThesaurusSchemaPolicy(DexteritySchemaPolicy):

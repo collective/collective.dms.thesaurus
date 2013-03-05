@@ -7,7 +7,6 @@ from zope.schema.interfaces import IVocabularyFactory
 #from zope.schema.interfaces import ISource, IContextSourceBinder
 from zope.schema.vocabulary import SimpleVocabulary
 #from zope.schema.vocabulary import SimpleTerm
-
 from Products.CMFCore.utils import getToolByName
 
 
@@ -40,16 +39,23 @@ grok.global_utility(GlobalThesaurusSource,
                     name=u'dms.thesaurus.global')
 
 class KeywordFromSameThesaurusSource(object):
+    """
+    This vocabulary is used for keywords that reference one another
+    inside the same thesaurus. It should not be used for referencing
+    keywords from other content types.
+    """
     grok.implements(IVocabularyFactory)
 
     def __call__(self, context):
-        #XXX: need to add url filter
+        thesaurus_path = '/'.join(context.thesaurusPath())
         catalog = getToolByName(context, 'portal_catalog')
-        results = catalog(portal_type='dmskeyword')
+        results = catalog(portal_type='dmskeyword',
+                          path={'query': thesaurus_path,'depth': 1})
         keywords = [x.getObject() for x in results]
         def cmp_keyword(x, y):
             return cmp(x.title, y.title)
         keywords.sort(cmp_keyword)
+
         keyword_ids = [x.id for x in keywords]
         keyword_terms = [SimpleVocabulary.createTerm(
                                 x.id, x.id, x.title) for x in keywords]
@@ -61,4 +67,4 @@ class KeywordFromSameThesaurusSource(object):
 
 
 grok.global_utility(KeywordFromSameThesaurusSource,
-                    name=u'dms.thesaurus.samesource')
+                    name=u'dms.thesaurus.internalrefs')

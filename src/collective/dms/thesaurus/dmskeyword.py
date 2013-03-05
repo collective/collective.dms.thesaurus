@@ -1,4 +1,5 @@
 #import datetime
+from Acquisition import aq_parent
 from zope.interface import implements
 
 from zope import schema
@@ -11,6 +12,7 @@ from plone.supermodel import model
 from . import _
 from .keywordsfield import ThesaurusKeywords
 from .equivalencesfield import ThesaurusKeywordEquivalences
+from .dmsthesaurus import NoThesaurusFound
 
 class IDmsKeyword(model.Schema):
     """ """
@@ -25,7 +27,7 @@ class IDmsKeyword(model.Schema):
     broader = ThesaurusKeywords(
         title=_(u"BT (Broader Terms)"),
         required=False,
-        vocabulary=u'dms.thesaurus.samesource'
+        vocabulary=u'dms.thesaurus.internalrefs'
         )
 
     # RT: related term
@@ -33,7 +35,7 @@ class IDmsKeyword(model.Schema):
         title=_(u"RT (Related Terms)"),
         required=False,
         display_backrefs=True,
-        vocabulary=u'dms.thesaurus.samesource'
+        vocabulary=u'dms.thesaurus.internalrefs'
         )
 
     # HN: historical note
@@ -48,10 +50,28 @@ class IDmsKeyword(model.Schema):
         required=False,
         )
 
+    def thesaurus():
+        """get parent thesaurus"""
+
+    def thesaurusPath():
+        """get parent thesaurus physical path"""
+
 
 class DmsKeyword(Item):
     """ """
     implements(IDmsKeyword)
+
+    def thesaurus(self):
+        thesaurus = self
+        while thesaurus.portal_type != "dmsthesaurus":
+            thesaurus = aq_parent(thesaurus)
+        if not hasattr(thesaurus, 'portal_type') or getattr(thesaurus, 'portal_type', None) is None:
+            raise NoThesaurusFound
+        return thesaurus
+
+    def thesaurusPath(self):
+        return self.thesaurus().getPhysicalPath()
+
 
 
 class DmsKeywordSchemaPolicy(DexteritySchemaPolicy):

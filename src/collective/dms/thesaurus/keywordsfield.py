@@ -13,9 +13,7 @@ from z3c.form.widget import FieldWidget, SequenceWidget
 #from z3c.form.widget import Widget
 #from z3c.form.browser.select import SelectWidget
 
-
 from . import _
-
 
 class IThesaurusKeywords(ISet):
     pass
@@ -35,9 +33,18 @@ class IThesaurusKeywordsWidget(ISequenceWidget):
     pass
 
 
-class NoThesaurusFound(Exception):
-    """No thesaurus found"""
 
+
+JS_TEMPLATE = """
+$(document).ready(function() {
+  $('a.kw_add_link').prepOverlay({
+    subtype: 'ajax',
+    filter: '#content>*',
+    urlmatch: '.*',
+    urlreplace: '%(thesaurus_url)s'
+  });
+});
+"""
 
 class ThesaurusKeywordsWidget(SequenceWidget):
     implements(IThesaurusKeywordsWidget)
@@ -45,6 +52,13 @@ class ThesaurusKeywordsWidget(SequenceWidget):
     def __init__(self, request, display_backrefs=False):
         self.display_backrefs = display_backrefs
         super(ThesaurusKeywordsWidget, self).__init__(request)
+
+    @property
+    def js(self):
+        thesaurus_path = '/'.join(self.context.thesaurusPath())
+        return JS_TEMPLATE % dict(
+            thesaurus_url=thesaurus_path
+            )
 
     def items(self):
         value = []
@@ -59,23 +73,19 @@ class ThesaurusKeywordsWidget(SequenceWidget):
         return value
 
     def displayItems(self):
-        thesaurus = self.context
-
-        # XXX attention on remonte a partir d'un document ou d'un kw
-
+        thesaurus_path = '/'.join(self.context.thesaurusPath())
         value = []
         for token in self.value:
             # Ignore no value entries. They are in the request only.
             if token == self.noValueToken:
                 continue
-
             term = self.terms.getTermByToken(token)
-
             value.append(
                 {'title': term.title,
-                 'href': '#dummy',
+                 'href': thesaurus_path + '/' + term.value,
                  })
         return value
+
 
 
 @adapter(IThesaurusKeywords, IFormLayer)

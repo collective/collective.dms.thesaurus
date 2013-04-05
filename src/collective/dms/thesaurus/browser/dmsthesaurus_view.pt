@@ -1,0 +1,29 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="plone.app.dexterity">
+<body>
+
+<metal:main fill-slot="main">
+
+    <h1 class="documentFirstHeading" tal:content="context/Title" /> 
+    <div tal:replace="structure provider:plone.belowcontenttitle" />
+
+    <form id="thesaurus-search-form"
+          tal:content="structure view/renderForm"
+          onsubmit="window.location=window.location+'/'+document.forms['thesaurus-search-form']['form-widgets-keyword_search'].value; return false" />
+
+    <ul>
+      <tal:elems repeat="ep view/context/entry_points">
+        <li tal:content="ep" />
+      </tal:elems>
+    </ul>
+
+</metal:main>
+
+</body>
+</html>
+

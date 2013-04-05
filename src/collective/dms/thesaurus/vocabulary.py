@@ -1,6 +1,8 @@
 from zope.interface import Interface
-#from zope.interface import implements
+from zope.interface import implements
 from five import grok
+
+from zope.schema.interfaces import IContextSourceBinder
 
 #from zope.component import queryUtility
 from zope.schema.interfaces import IVocabularyFactory
@@ -14,9 +16,14 @@ class IMainThesaurus(Interface):
     """ Marker interface for main thesaurus container
     """
 
+class ThesaurusVocabulary(SimpleVocabulary):
+
+    def search(self, query_string):
+        q = query_string.lower()
+        return [kw for kw in self._terms if q in kw.title.lower()]
 
 class GlobalThesaurusSource(object):
-    grok.implements(IVocabularyFactory)
+    implements(IContextSourceBinder)
 
     def __call__(self, context):
         catalog = getToolByName(context, 'portal_catalog')
@@ -25,18 +32,18 @@ class GlobalThesaurusSource(object):
         def cmp_keyword(x, y):
             return cmp(x.title, y.title)
         keywords.sort(cmp_keyword)
-        keyword_ids = [x.id for x in keywords]
+        #keyword_ids = [x.id for x in keywords]
         keyword_terms = [SimpleVocabulary.createTerm(
                                 x.id, x.id, x.title) for x in keywords]
-        return SimpleVocabulary(keyword_terms)
+        return ThesaurusVocabulary(keyword_terms)
 
     def __iter__(self):
         # hack to let schema editor handle the field
         yield u'DO NOT TOUCH'
 
 
-grok.global_utility(GlobalThesaurusSource,
-                    name=u'dms.thesaurus.global')
+#grok.global_utility(GlobalThesaurusSource,
+#                    name=u'dms.thesaurus.global')
 
 class KeywordFromSameThesaurusSource(object):
     """

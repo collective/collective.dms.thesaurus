@@ -28,5 +28,6 @@
         template="thesaurus-keyword-equivs-display.pt"
         />
 
+    <!-- adapter factory=".dmsthesaurus.EntryPointsFieldWidget"/-->
 
 </configure>

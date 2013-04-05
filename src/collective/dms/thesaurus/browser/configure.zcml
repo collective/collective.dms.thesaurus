@@ -28,4 +28,13 @@
       permission="zope2.View"
       />
 
+  <browser:page
+      name="view"
+      for="collective.dms.thesaurus.dmsthesaurus.IDmsThesaurus"
+      layer="plone.app.z3cform.interfaces.IPloneFormLayer"
+      class="collective.dms.thesaurus.browser.thesaurusview.DmsThesaurusView"
+      template="dmsthesaurus_view.pt"
+      permission="zope2.View"
+      />
+
 </configure>

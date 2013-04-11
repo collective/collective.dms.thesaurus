@@ -12,78 +12,80 @@
     <h1 class="documentFirstHeading" tal:content="context/Title" /> 
     <div tal:replace="structure provider:plone.belowcontenttitle" />
 
-    <div id="dmskeywords-navigation">
+    <div id="dmskeywords-navigation"
+         i18n:domain="collective.dms.thesaurus">
 
-      <tal:broader define="widget python:view.widgets.get('broader')">
-          <div id="dmskeywords-navigation-broader-field"
-              class="field">
-              <label tal:content="widget/label" />
+      <div id="dmskeywords-navigation-left">
+
+          <tal:broader define="widget python:view.widgets.get('broader')">
+              <div id="dmskeywords-navigation-broader-field"
+                  class="field">
+                  <label tal:content="widget/label" />
+                  <br />
+                  <div tal:content="structure widget/render" />
+              </div>
+          </tal:broader>
+
+          <h1 class="documentFirstHeading" tal:content="context/Title" /> 
+          <p class="documentDescription"
+             tal:define="widget python:view.widgets.get('equivs')"
+             tal:condition="widget/terms"
+                      ><label tal:content="widget/label"
+                      />[<tal:equiv-terms repeat="value widget/terms"
+                        ><span tal:content="value"
+                          /><span tal:condition="not:repeat/value/end"
+                                  tal:replace="python:', '"
+                                  /></tal:equiv-terms>]</p>
+
+          <dl class="portalMessage warning"
+              tal:define="widget python:view.widgets.get('scope_note')"
+              tal:condition="widget/value"
+          ><dt tal:content="widget/label"/><dd >
+            <span tal:replace="structure widget/render" />
+          </dd></dl>
+
+          <dl class="portalMessage info"
+              tal:define="widget python:view.widgets.get('historical_note')"
+              tal:condition="widget/value"
+          ><dt tal:content="widget/label"/><dd >
+            <span tal:replace="structure widget/render" />
+          </dd></dl>
+
+          <div class="field" id="dmskeywords-navigation-narrower-field">
+              <label i18n:translate="">NT (Narrower Terms)</label>
               <br />
-              <div tal:content="structure widget/render" />
+              <tal:list condition="view/children">
+              <ul id="" class=""
+                    tal:attributes="id string:form-widgets-children;
+                                    class string:contenttree-widget narrowerthesauruskeywords-field;
+                                    "><li tal:repeat="value view/children"
+                  ><a href="#"
+                      tal:content="value/label"
+                      tal:attributes="href value/url"
+                  /></li
+              ></ul></tal:list>
+              <em tal:condition="not:view/children"
+                  i18n:translate="">nothing</em>
           </div>
-      </tal:broader>
-
-      <div id="dmskeywords-navigation-middle">
-
-        <h1 class="documentFirstHeading" tal:content="context/Title" /> 
-        <p class="documentDescription">
-        <tal:equivs define="widget python:view.widgets.get('equivs')"
-                    condition="python:widget.__name__ not in ('IBasic.title', 'IBasic.description', 'title', 'description',) and widget.terms()"
-                    >[
-                    <tal:equiv-terms repeat="value widget/terms"
-                      ><span tal:content="value"
-                        /><span tal:condition="not:repeat/value/end"
-                                tal:replace="python:', '"
-                                /></tal:equiv-terms>
-                                ]</tal:equivs></p>
-
-        <dl class="portalMessage warning"
-            tal:define="widget python:view.widgets.get('scope_note')"
-            tal:condition="widget/value"
-        ><dt tal:content="widget/label"/><dd >
-          <span tal:replace="structure widget/render" />
-        </dd></dl>
-
-        <dl class="portalMessage info"
-            tal:define="widget python:view.widgets.get('historical_note')"
-            tal:condition="widget/value"
-        ><dt tal:content="widget/label"/><dd >
-          <span tal:replace="structure widget/render" />
-        </dd></dl>
-
-
-      <div class="field" id="dmskeywords-navigation-related-field">
-          <label tal:content="string:RT (Related Terms)" />
-          <br />
-          <tal:list condition="view/related">
-          <ul id="" class=""
-                tal:attributes="id string:form-widgets-related;
-                                class string:contenttree-widget relatedthesauruskeywords-field;
-                                "><li tal:repeat="value view/related"
-              ><a href="#"
-                  tal:content="value/label"
-                  tal:attributes="href value/url"
-              /></li
-          ></ul></tal:list>
-          <em tal:condition="not:view/related">none</em>
-      </div>
 
       </div>
-
-      <div class="field" id="dmskeywords-navigation-narrower-field">
-          <label tal:content="string:NT (Narrower Terms)" />
-          <br />
-          <tal:list condition="view/children">
-          <ul id="" class=""
-                tal:attributes="id string:form-widgets-children;
-                                class string:contenttree-widget narrowerthesauruskeywords-field;
-                                "><li tal:repeat="value view/children"
-              ><a href="#"
-                  tal:content="value/label"
-                  tal:attributes="href value/url"
-              /></li
-          ></ul></tal:list>
-          <em tal:condition="not:view/children">none</em>
+      <div id="dmskeywords-navigation-right">
+        <div class="field" id="dmskeywords-navigation-related-field">
+            <label i18n:translate="">RT (Related Terms)</label>
+            <br />
+            <tal:list condition="view/related">
+            <ul id="" class=""
+                  tal:attributes="id string:form-widgets-related;
+                                  class string:contenttree-widget relatedthesauruskeywords-field;
+                                  "><li tal:repeat="value view/related"
+                ><a href="#"
+                    tal:content="value/label"
+                    tal:attributes="href value/url"
+                /></li
+            ></ul></tal:list>
+            <em tal:condition="not:view/related"
+                i18n:translate="">nothing</em>
+        </div>
       </div>
 
     </div>

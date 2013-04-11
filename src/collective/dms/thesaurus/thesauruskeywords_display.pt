@@ -8,4 +8,5 @@
            /></li
 ></ul>
 <em tal:condition="not:view/displayItems"
-    i18n:translate="">none</em>
+    i18n:domain="collective.dms.thesaurus"
+    i18n:translate="">nothing</em>

@@ -21,5 +21,5 @@ msgstr "Mot clé du thesaurus"
 
 #: ./profiles/default/types/dmsthesaurus.xml
 msgid "Thesaurus"
-msgstr "Thesaurus"
+msgstr "Thésaurus"
 

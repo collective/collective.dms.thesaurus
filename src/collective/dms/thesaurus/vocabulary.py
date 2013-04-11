@@ -22,6 +22,29 @@ class ThesaurusVocabulary(SimpleVocabulary):
         q = query_string.lower()
         return [kw for kw in self._terms if q in kw.title.lower()]
 
+
+class InternalThesaurusSource(object):
+    implements(IContextSourceBinder)
+
+    def __call__(self, context):
+        catalog = getToolByName(context, 'portal_catalog')
+        path = '/'.join(context.getPhysicalPath())
+        results = catalog(portal_type='dmskeyword',
+                          path={'query': path,'depth': 1})
+        keywords = [x.getObject() for x in results]
+        def cmp_keyword(x, y):
+            return cmp(x.title, y.title)
+        keywords.sort(cmp_keyword)
+        #keyword_ids = [x.id for x in keywords]
+        _c = SimpleVocabulary.createTerm
+        keyword_terms = [ _c(x.id, x.id, x.title) for x in keywords ]
+        return ThesaurusVocabulary(keyword_terms)
+
+    def __iter__(self):
+        # hack to let schema editor handle the field
+        yield u'DO NOT TOUCH'
+
+
 class GlobalThesaurusSource(object):
     implements(IContextSourceBinder)
 
@@ -45,6 +68,7 @@ class GlobalThesaurusSource(object):
 #grok.global_utility(GlobalThesaurusSource,
 #                    name=u'dms.thesaurus.global')
 
+
 class KeywordFromSameThesaurusSource(object):
     """
     This vocabulary is used for keywords that reference one another
@@ -54,7 +78,10 @@ class KeywordFromSameThesaurusSource(object):
     grok.implements(IVocabularyFactory)
 
     def __call__(self, context):
-        thesaurus_path = '/'.join(context.thesaurusPath())
+        if context.portal_type == 'dmsthesaurus':
+            thesaurus_path = '/'.join(context.getPhysicalPath())
+        else:
+            thesaurus_path = '/'.join(context.thesaurusPath())
         catalog = getToolByName(context, 'portal_catalog')
         results = catalog(portal_type='dmskeyword',
                           path={'query': thesaurus_path,'depth': 1})

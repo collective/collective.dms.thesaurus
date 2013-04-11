@@ -15,6 +15,14 @@ msgstr ""
 "Domain: plone\n"
 "X-is-fallback-for: fr-fr fr-be fr-ca\n"
 
+#: ./dmsthesaurus.py
+msgid "Entry Points"
+msgstr "Points d'entrée"
+
+#: ./dmsthesaurus.py
+msgid "First level of navigation for this Thesaurus"
+msgstr "Premier niveau de navigation dans ce thésaurus"
+
 #: ./dmskeyword.py
 msgid "EQ (Equivalences)"
 msgstr "Employé pour (équivalences)"

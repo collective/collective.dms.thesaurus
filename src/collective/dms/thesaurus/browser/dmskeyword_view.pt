@@ -30,12 +30,8 @@
           <p class="documentDescription"
              tal:define="widget python:view.widgets.get('equivs')"
              tal:condition="widget/terms"
-                      ><label tal:content="widget/label"
-                      />[<tal:equiv-terms repeat="value widget/terms"
-                        ><span tal:content="value"
-                          /><span tal:condition="not:repeat/value/end"
-                                  tal:replace="python:', '"
-                                  /></tal:equiv-terms>]</p>
+                      ><label tal:content="widget/label" /><br />
+              <tal:equivs content="structure widget/render" /></p>
 
           <dl class="portalMessage warning"
               tal:define="widget python:view.widgets.get('scope_note')"

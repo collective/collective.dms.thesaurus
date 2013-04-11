@@ -1,20 +1,8 @@
-<ul id="" class=""
-      tal:condition="view/terms"
-      tal:attributes="id view/id;
-                      class view/klass;
-                      style view/style;
-                      title view/title;
-                      lang view/lang;
-                      onclick view/onclick;
-                      ondblclick view/ondblclick;
-                      onmousedown view/onmousedown;
-                      onmouseup view/onmouseup;
-                      onmouseover view/onmouseover;
-                      onmousemove view/onmousemove;
-                      onmouseout view/onmouseout;
-                      onkeypress view/onkeypress;
-                      onkeydown view/onkeydown;
-                      onkeyup view/onkeyup"><li
-    tal:repeat="value view/terms"
-      ><span class="" tal:content="value" /></li></ul
-><em tal:condition="not:view/terms">(nothing)</em>
+<tal:display condition="view/terms"
+  >[<tal:equiv-terms repeat="value view/terms"
+        ><span tal:content="value"
+               /><span tal:condition="not:repeat/value/end"
+                       tal:replace="python:', '"
+                       /></tal:equiv-terms>]</tal:display>
+
+<em tal:condition="not:view/terms">(nothing)</em>

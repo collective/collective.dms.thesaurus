@@ -17,6 +17,14 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: collective.dms.thesaurus\n"
 
+#: ./dmsthesaurus.py
+msgid "Entry Points"
+msgstr ""
+
+#: ./dmsthesaurus.py
+msgid "First level of navigation for this Thesaurus"
+msgstr ""
+
 #: ./dmskeyword.py
 msgid "EQ (Equivalences)"
 msgstr ""

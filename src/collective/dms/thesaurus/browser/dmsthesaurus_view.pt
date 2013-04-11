@@ -16,11 +16,9 @@
           tal:content="structure view/renderForm"
           onsubmit="window.location=window.location+'/'+document.forms['thesaurus-search-form']['form-widgets-keyword_search'].value; return false" />
 
-    <ul>
-      <tal:elems repeat="ep view/context/entry_points">
-        <li tal:content="ep" />
-      </tal:elems>
-    </ul>
+    <div id="dmsthesaurus-entry-points-field"
+         tal:define="widget python:view.widgets.get('entry_points')"
+         tal:content="structure widget/render" />
 
 </metal:main>
 

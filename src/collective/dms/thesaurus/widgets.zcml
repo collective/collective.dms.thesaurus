@@ -28,6 +28,7 @@
         template="thesaurus-keyword-equivs-display.pt"
         />
 
-    <!-- adapter factory=".dmsthesaurus.EntryPointsFieldWidget"/-->
+    <!-- thesaurus entry points widget, used in thesaurus schema -->
+    <adapter factory=".entrypointsfield.EntryPointsFieldWidget"/>
 
 </configure>

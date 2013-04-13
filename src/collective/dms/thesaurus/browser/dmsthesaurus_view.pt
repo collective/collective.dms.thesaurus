@@ -23,7 +23,7 @@
         <div tal:content="structure widget/render" />
     </div>
 
-<script type="text/javascript">
+<script type="text/javascript" tal:condition="python: 'ajax_load' not in request.form.keys()">
 function autocomplete_ready(event, data, formatted) {
   window.location=window.location+'/'+data[1];
 }
@@ -32,6 +32,18 @@ $(document).ready(function() {
     $('.keyword-search').autocomplete('listKeywords', {
                 'cacheLength': 0, 'matchContains': true, 'scroll': true, 'max': 30}).result(autocomplete_ready);
 });
+</script>
+
+
+<script type="text/javascript" tal:condition="python: 'ajax_load' in request.form.keys()">
+function preplinks() {
+  $('.overlay-ajax a').click(function() {
+    $('.pb-ajax > div').load($(this).attr('href') + ' #content>*', preplinks);
+    return false;
+  });
+}
+
+preplinks();
 </script>
 
 </metal:main>

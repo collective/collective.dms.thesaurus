@@ -38,7 +38,7 @@ $(document).ready(function() {
 <script type="text/javascript" tal:condition="python: 'ajax_load' in request.form.keys()">
 function preplinks() {
   $('.overlay-ajax a').click(function() {
-    $('.pb-ajax > div').load($(this).attr('href') + ' #content>*', preplinks);
+    $('.pb-ajax > div').load($(this).attr('href') + '?ajax_load=123 #content>*', preplinks);
     return false;
   });
 }

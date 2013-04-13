@@ -19,12 +19,13 @@
             <div id="dmskeywords-navigation-broader-field"
                 class="field"
                 tal:define="widget python:view.widgets.get('broader')">
-                <label tal:content="widget/label" />
-                <br />
+                <label tal:content="widget/label" /> <br />
                 <div tal:content="structure widget/render" />
             </div>
 
             <h1 class="documentFirstHeading" tal:content="context/Title" /> 
+            <button tal:condition="python: 'ajax_load' in request.form.keys()"
+                    i18n:translate="">Select</button>
             <p class="documentDescription"
                tal:define="widget python:view.widgets.get('equivs')"
                tal:condition="widget/terms"

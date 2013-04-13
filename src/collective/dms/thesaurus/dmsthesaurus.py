@@ -31,20 +31,16 @@ class IDmsThesaurus(model.Schema):
     """ """
 
     entry_points = EntryPoints(
-                        title=_(u"Entry Points"),
-                        description=_(u"First level of navigation for this Thesaurus"),
-                        required=False)
-
+        title=_(u"Entry Points"),
+        description=_(u"First level of navigation for this Thesaurus"),
+        required=False)
 
 class DmsThesaurus(Container):
     """ """
     implements(IDmsThesaurus)
-
 
 class DmsThesaurusSchemaPolicy(DexteritySchemaPolicy):
     """ """
 
     def bases(self, schemaName, tree):
         return (IDmsThesaurus, )
-
-

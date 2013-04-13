@@ -37,4 +37,23 @@
       permission="zope2.View"
       />
 
+    <browser:page
+        for="collective.dms.thesaurus.dmsthesaurus.IDmsThesaurus"
+        name="autocomplete-search-form"
+        class="collective.dms.thesaurus.browser.thesaurusview.DmsThesaurusForm"
+        permission="cmf.ModifyPortalContent"
+        />
+    <adapter factory="collective.dms.thesaurus.browser.thesaurusview.AutocompleteSearchFieldWidget" />
+
+
+<!--
+    <browser:page
+        for="*"
+        name="search-widget"
+        class=".searchform.SearchView"
+        permission="cmf.ModifyPortalContent"
+        />
+    <adapter factory=".searchform.SearchAdapter" />
+-->
+
 </configure>

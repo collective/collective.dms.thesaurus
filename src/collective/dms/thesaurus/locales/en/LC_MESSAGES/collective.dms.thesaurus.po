@@ -47,3 +47,11 @@ msgstr ""
 msgid "nothing"
 msgstr ""
 
+#: ./browser/thesaurusview.py
+msgid "Quick Search"
+msgstr ""
+
+#: ./browser/thesaurusview.py
+msgid "Search for a keyword in this Thesaurus"
+msgstr ""
+

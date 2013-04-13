@@ -51,3 +51,11 @@ msgstr "NA (Note d'application)"
 msgid "nothing"
 msgstr "néant"
 
+#: ./browser/thesaurusview.py
+msgid "Quick Search"
+msgstr "Recherche rapide"
+
+#: ./browser/thesaurusview.py
+msgid "Search for a keyword in this Thesaurus"
+msgstr "Recherche rapide d'un terme du thésaurus"
+

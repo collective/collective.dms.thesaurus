@@ -17,8 +17,12 @@
           onsubmit="window.location=window.location+'/'+document.forms['thesaurus-search-form']['form-widgets-keyword_search'].value; return false" />
 
     <div id="dmsthesaurus-entry-points-field"
-         tal:define="widget python:view.widgets.get('entry_points')"
-         tal:content="structure widget/render" />
+        class="field"
+        tal:define="widget python:view.widgets.get('entry_points')">
+        <label tal:content="widget/label" />
+        <br />
+        <div tal:content="structure widget/render" />
+    </div>
 
 </metal:main>
 

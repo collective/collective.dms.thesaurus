@@ -1,8 +1,6 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+<div xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
       xmlns:tal="http://xml.zope.org/namespaces/tal"
       xmlns:metal="http://xml.zope.org/namespaces/metal">
-<body>
   <metal:use use-macro="context/@@ploneform-macros/fields" />
   <metal:use use-macro="context/@@ploneform-macros/actions" />
-</body>
-</html>
+</div>

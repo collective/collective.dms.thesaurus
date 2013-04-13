@@ -37,6 +37,12 @@
       permission="zope2.View"
       />
 
+  <browser:page
+      for="collective.dms.thesaurus.dmsthesaurus.IDmsThesaurus"
+      name="listKeywords"
+      class=".thesaurusview.ListKeywordsView"
+      permission="zope2.View"/>
+
     <browser:page
         for="collective.dms.thesaurus.dmsthesaurus.IDmsThesaurus"
         name="autocomplete-search-form"

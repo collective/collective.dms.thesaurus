@@ -8,10 +8,11 @@ from zope.schema.interfaces import IChoice
 
 from zope.browserpage.viewpagetemplatefile import ViewPageTemplateFile
 
-from z3c.form.interfaces import IFormLayer, IFieldWidget
+from z3c.form.interfaces import IFormLayer, IFieldWidget, ITextWidget
 from z3c.form.widget import FieldWidget
 from z3c.form import form, button, field
 from plone.z3cform import layout
+from z3c.form.browser import text
 #from plone.formwidget.autocomplete.widget import AutocompleteFieldWidget
 
 
@@ -24,6 +25,11 @@ from plone.dexterity.browser.view import DefaultView
 
 #from plone.dexterity.interfaces import IDexterityFTI
 #from plone.dexterity.utils import getAdditionalSchemata
+
+from Products.Five import BrowserView
+from Products.CMFCore.utils import getToolByName
+from zope.schema.vocabulary import SimpleVocabulary
+
 
 from collective.dms.thesaurus import _
 from collective.dms.thesaurus.vocabulary import InternalThesaurusSource
@@ -48,25 +54,30 @@ def AutocompleteSearchFieldWidget(field, request):
     return FieldWidget(field, AutocompleteSearchWidget(request))
 
 
+class IKeywordSearchWidget(ITextWidget):
+    pass
+
+class KeywordSearchWidget(text.TextWidget):
+    implements(IKeywordSearchWidget)
+    klass = u'keyword-search'
+
+def KeywordSearchFieldWidget(field, request):
+    return FieldWidget(field, KeywordSearchWidget(request))
+
 class IThesaurusForm(Interface):
-    keyword_search = schema.Choice(
+    keyword_search = schema.TextLine(
         title=_(u"Quick Search"),
         description=_(u"Search for a keyword in this Thesaurus"),
-        source=InternalThesaurusSource(), required=False)
+        required=False)
 
 
 class DmsThesaurusForm(form.Form):
     implements(IThesaurusForm)
 
     fields = field.Fields(IThesaurusForm)
-    fields['keyword_search'].widgetFactory = AutocompleteSearchFieldWidget
+    fields['keyword_search'].widgetFactory = KeywordSearchFieldWidget
     ignoreContext = True
     template = ViewPageTemplateFile('thesaurus_form.pt')
-
-    @button.buttonAndHandler(u'Ok')
-    def handle_ok(self, action):
-        data, errors = self.extractData()
-        print data, errors
 
 #from .searchform import SearchForm
 
@@ -77,4 +88,44 @@ class DmsThesaurusView(DefaultView):
         #form = SearchForm(self.context, self.request)
         form.update()
         return form.render()
-    
+
+
+class ListKeywordsView(BrowserView):
+
+    _vocabulary = None
+    def get_vocabulary(self):
+        context = self
+        if self._vocabulary is not None:
+            return self._vocabulary
+        catalog = getToolByName(context, 'portal_catalog')
+        # XXX
+        # path = '/'.join(context.getPhysicalPath())
+        # print 'path:', path
+        results = catalog(portal_type='dmskeyword',
+                         ) # path={'query': path,'depth': 1})
+        keywords = [x.getObject() for x in results]
+        def cmp_keyword(x, y):
+            return cmp(x.title, y.title)
+        keywords.sort(cmp_keyword)
+        #keyword_ids = [x.id for x in keywords]
+        _c = SimpleVocabulary.createTerm
+        keyword_terms = [ _c(x.id, x.id, x.title) for x in keywords ]
+        self._vocabulary = SimpleVocabulary(keyword_terms)
+        return self._vocabulary
+
+    def __call__(self):
+        from plone.i18n.normalizer.fr import normalizer
+        self.request.response.setHeader('Content-type', 'text/plain')
+
+        query_terms = [normalizer.normalize(x).lower() for x in unicode(self.request.form.get('q'), 'utf-8').split()]
+
+        r = []
+        for value in self.get_vocabulary().by_token.values():
+            for term in query_terms:
+                if not term in value.title.lower():
+                    break
+            else:
+                r.append('%s|%s' % (value.title, value.value))
+                if len(r) > 30:
+                    break
+        return '\n'.join(r)

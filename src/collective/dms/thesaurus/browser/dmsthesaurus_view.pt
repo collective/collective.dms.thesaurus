@@ -12,9 +12,8 @@
     <h1 class="documentFirstHeading" tal:content="context/Title" /> 
     <div tal:replace="structure provider:plone.belowcontenttitle" />
 
-    <form id="thesaurus-search-form"
-          tal:content="structure view/renderForm"
-          onsubmit="window.location=window.location+'/'+document.forms['thesaurus-search-form']['form-widgets-keyword_search'].value; return false" />
+    <form id="thesaurus-search-form" tal:content="structure view/renderForm">
+    </form>
 
     <div id="dmsthesaurus-entry-points-field"
         class="field"
@@ -23,6 +22,17 @@
         <br />
         <div tal:content="structure widget/render" />
     </div>
+
+<script type="text/javascript">
+function autocomplete_ready(event, data, formatted) {
+  window.location=window.location+'/'+data[1];
+}
+
+$(document).ready(function() {
+    $('.keyword-search').autocomplete('listKeywords', {
+                'cacheLength': 0, 'matchContains': true, 'scroll': true, 'max': 30}).result(autocomplete_ready);
+});
+</script>
 
 </metal:main>
 

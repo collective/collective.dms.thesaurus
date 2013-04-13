@@ -44,7 +44,6 @@ setup(name='collective.dms.thesaurus',
           'plone.app.dexterity',
           #'plone.directives.form',
           #'collective.contact.core',
-          'collective.dms.thesauruswidget',
           'five.grok',
       ],
       extras_require={

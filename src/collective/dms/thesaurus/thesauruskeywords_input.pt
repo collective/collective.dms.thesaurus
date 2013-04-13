@@ -21,7 +21,7 @@
 <input name="field-empty-marker" type="hidden" value="1"
        tal:attributes="name string:${view/name}-empty-marker" />
 
-<span id="" class=""><tal:block
+<span id="" class="selected-options"><tal:block
     tal:repeat="item view/items"
     ><span class="selected-option"
            tal:attributes="data-term-id item/value">

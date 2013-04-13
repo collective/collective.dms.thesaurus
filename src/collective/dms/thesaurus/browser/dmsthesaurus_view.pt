@@ -40,14 +40,29 @@ $(document).ready(function() {
 
 
 <script type="text/javascript" tal:condition="python: 'ajax_load' in request.form.keys()">
-function preplinks() {
+function prep_thesaurus_overlay() {
   $('.overlay-ajax a').click(function() {
-    $('.pb-ajax > div').load($(this).attr('href') + '?ajax_load=123 #content>*', preplinks);
+    var urlsplit = $(this).attr('href').split('/');
+    var keyword_id = urlsplit[urlsplit.length-1];
+    $(this).parents('.overlay-ajax').data('keyword-id', keyword_id);
+    $('.pb-ajax > div').load($(this).attr('href') + '?ajax_load=123 #content>*', prep_thesaurus_overlay);
+    return false;
+  });
+  $('.overlay-ajax button').click(function() {
+    overlay_id = $(this).parents('.overlay-ajax').attr('id');
+    field = $('a[rel="#' + overlay_id + '"]').parents('.field');
+    var id = $(this).parents('.overlay-ajax').data('keyword-id');
+    var title = $(this).parents('.overlay-ajax').find('h1').text();
+    $(field).find('select').append('<option id="' + id + '" selected="selected" value="' + id + '"></option>');
+    $(field).find('.selected-options').append('<span class="selected-option" data-term-id="' + id + '">' +
+        '<span>' + title + '</span>' +
+        '<span class="remove">×</span></span>\n');
+    $(this).parents('.overlay-ajax').find('.close').click();
     return false;
   });
 }
 
-preplinks();
+prep_thesaurus_overlay();
 </script>
 
     </div>

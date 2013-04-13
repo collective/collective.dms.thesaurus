@@ -1,7 +1,7 @@
 <div xmlns="http://www.w3.org/1999/xhtml"
      xmlns:tal="http://xml.zope.org/namespaces/tal"
      tal:omit-tag="">
-<select id="" name="" class="" tabindex="" disabled="" multiple="multiple" size="5"
+<select id="" name="" class="" tabindex="" multiple="multiple" size="5"
         style="display: none;"
         tal:attributes="id view/id;
                         name string:${view/name}:list">

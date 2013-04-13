@@ -12,9 +12,6 @@ from z3c.form.interfaces import IFormLayer, IFieldWidget
 from z3c.form.widget import FieldWidget
 from z3c.form.browser.multi import MultiWidget
 
-#from z3c.relationfield.interfaces import IRelationList
-#from z3c.relationfield.schema import RelationChoice, RelationList
-
 #from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 class IThesaurusKeywordEquivalences(IList):

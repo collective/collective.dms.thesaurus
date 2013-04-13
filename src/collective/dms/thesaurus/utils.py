@@ -1,7 +1,6 @@
 import json
 
 from zope import component
-from z3c.relationfield import RelationValue
 from Products.Five.browser import BrowserView
 
 from zope.component import getUtility

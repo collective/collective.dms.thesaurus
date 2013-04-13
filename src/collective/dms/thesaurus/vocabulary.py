@@ -26,7 +26,11 @@ class ThesaurusVocabulary(SimpleVocabulary):
 class InternalThesaurusSource(object):
     implements(IContextSourceBinder)
 
+    _vocabulary = None
+
     def __call__(self, context):
+        if self._vocabulary is not None:
+            return self._vocabulary
         catalog = getToolByName(context, 'portal_catalog')
         path = '/'.join(context.getPhysicalPath())
         results = catalog(portal_type='dmskeyword',
@@ -38,7 +42,7 @@ class InternalThesaurusSource(object):
         #keyword_ids = [x.id for x in keywords]
         _c = SimpleVocabulary.createTerm
         keyword_terms = [ _c(x.id, x.id, x.title) for x in keywords ]
-        return ThesaurusVocabulary(keyword_terms)
+        self._vocabulary = ThesaurusVocabulary(keyword_terms)
 
     def __iter__(self):
         # hack to let schema editor handle the field

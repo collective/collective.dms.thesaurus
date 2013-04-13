@@ -14,6 +14,8 @@
     <div tal:replace="structure provider:plone.belowcontenttitle" />
     </tal:contents_header>
 
+    <div id="dmskeywords-navigation">
+
     <form id="thesaurus-search-form" tal:content="structure view/renderForm">
     </form>
 
@@ -48,6 +50,7 @@ function preplinks() {
 preplinks();
 </script>
 
+    </div>
 </metal:main>
 
 </body>

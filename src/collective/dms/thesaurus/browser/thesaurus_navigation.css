@@ -6,6 +6,18 @@
 	width:  100%;
 }
 
+#dmskeywords-navigation ul {
+  margin-bottom: 0.25em;
+  margin-left: 2em;
+  line-height: 1.5em;
+  list-style: none outside none;
+  list-style-type: disc;
+}
+
+#dmskeywords-navigation ul li {
+  display: list-item;
+}
+
 #dmskeywords-navigation-left-column {
 	width:  75%;
 }

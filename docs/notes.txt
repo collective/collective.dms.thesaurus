@@ -90,18 +90,11 @@ Importations
 TODO
 -----
 
-- finish view for kws
-  - give better visual id to broader and narrower regions
-  - better stylesheet
-
 - cleanup, move browser stuff to browser package, etc.
 
 A faire :
 
 - Assurer l'indexation des equivalents dans le searchable text
-
-- dans la vue kw: Afficher aussi les equivs de chaque kw associé
-                  + les notes hist et scope ?
 
 - Intégrer ce qu'on a fait dans de dmsdocument et créer le widget adapté
   pour le edit (+view?) du document.
@@ -111,18 +104,19 @@ A faire :
   qui sont de toute façons amenés à être utilisés, et ne sont pas soumis
   à un processus éditorial)
 
-- Plein d'autres trucs, certainement, comme écrire des tests et préparer
-  l'i18n
-
 
 - vocabulaire pour autocomplete
     cf vocab pour les contacts
     + exploiter ce vocab dans une vue pour le thesaurus
     ... mh, ça semble déjà exister
 
-questions pour demain
-----------------------
+TOUJOURS A FAIRE
+================
 
-- tiens, le package mailcontent n'apparait plus dans le portal_setup
-- on vire le champ description d'un kw ?
+- Assurer l'indexation des equivalents dans le searchable text
+
+- bug "invalid clone vocabulary"
+- 'employé pour' dans autocomplete
+
+- Ajouter broader dans vue d'édition
 

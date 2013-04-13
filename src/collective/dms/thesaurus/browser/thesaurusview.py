@@ -93,6 +93,7 @@ class DmsThesaurusView(DefaultView):
 class ListKeywordsView(BrowserView):
 
     _vocabulary = None
+
     def get_vocabulary(self):
         context = self
         if self._vocabulary is not None:
@@ -104,6 +105,7 @@ class ListKeywordsView(BrowserView):
         results = catalog(portal_type='dmskeyword',
                          ) # path={'query': path,'depth': 1})
         keywords = [x.getObject() for x in results]
+
         def cmp_keyword(x, y):
             return cmp(x.title.lower(), y.title.lower())
         keywords.sort(cmp_keyword)
@@ -139,11 +141,13 @@ class ListKeywordsView(BrowserView):
                         intermediate.append(item)
                         added = True
                         break;
-                else:
+                if not added:
                     other.append(item)
+
         startswith.sort()
         intermediate.sort()
         other.sort()
+
         r = []
         for l in (startswith, intermediate, other):
             for t, e in l:

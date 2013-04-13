@@ -9,8 +9,10 @@
 
 <metal:main fill-slot="main">
 
+    <tal:contents_header condition="python: 'ajax_load' not in request.form.keys()">
     <h1 class="documentFirstHeading" tal:content="context/Title" /> 
     <div tal:replace="structure provider:plone.belowcontenttitle" />
+    </tal:contents_header>
 
     <form id="thesaurus-search-form" tal:content="structure view/renderForm">
     </form>

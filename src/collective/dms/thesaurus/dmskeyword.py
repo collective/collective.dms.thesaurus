@@ -17,6 +17,10 @@ from .dmsthesaurus import NoThesaurusFound
 class IDmsKeyword(model.Schema):
     """ """
 
+    title = schema.TextLine(
+        title=_(u"Title")
+        )
+
     # EQ: equivalences
     equivs = ThesaurusKeywordEquivalences(
         title=_(u'EQ (Equivalences)'),

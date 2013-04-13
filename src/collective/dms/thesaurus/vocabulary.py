@@ -37,7 +37,7 @@ class InternalThesaurusSource(object):
                           path={'query': path,'depth': 1})
         keywords = [x.getObject() for x in results]
         def cmp_keyword(x, y):
-            return cmp(x.title, y.title)
+            return cmp(x.title.lower(), y.title.lower())
         keywords.sort(cmp_keyword)
         #keyword_ids = [x.id for x in keywords]
         _c = SimpleVocabulary.createTerm

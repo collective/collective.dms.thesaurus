@@ -105,7 +105,7 @@ class ListKeywordsView(BrowserView):
                          ) # path={'query': path,'depth': 1})
         keywords = [x.getObject() for x in results]
         def cmp_keyword(x, y):
-            return cmp(x.title, y.title)
+            return cmp(x.title.lower(), y.title.lower())
         keywords.sort(cmp_keyword)
         #keyword_ids = [x.id for x in keywords]
         _c = SimpleVocabulary.createTerm
@@ -117,15 +117,37 @@ class ListKeywordsView(BrowserView):
         from plone.i18n.normalizer.fr import normalizer
         self.request.response.setHeader('Content-type', 'text/plain')
 
-        query_terms = [normalizer.normalize(x).lower() for x in unicode(self.request.form.get('q'), 'utf-8').split()]
+        query_string = unicode(self.request.form.get('q'), 'utf-8')
+        query_terms = [normalizer.normalize(x) for x in query_string.split()]
 
-        r = []
+        startswith = []
+        intermediate = []
+        other = []
+        q = query_string.lower()
         for value in self.get_vocabulary().by_token.values():
             for term in query_terms:
                 if not term in value.title.lower():
                     break
             else:
-                r.append('%s|%s' % (value.title, value.value))
-                if len(r) > 30:
-                    break
+                item = (value.title.lower(), '%s|%s' % (value.title, value.value))
+                added = False
+                if value.title.lower().startswith(q):
+                    startswith.append(item)
+                    added = True
+                for te in value.title.split():
+                    if te.lower().startswith(q):
+                        intermediate.append(item)
+                        added = True
+                        break;
+                else:
+                    other.append(item)
+        startswith.sort()
+        intermediate.sort()
+        other.sort()
+        r = []
+        for l in (startswith, intermediate, other):
+            for t, e in l:
+                r.append(e)
+                if len(r) > 29:
+                    return '\n'.join(r)
         return '\n'.join(r)

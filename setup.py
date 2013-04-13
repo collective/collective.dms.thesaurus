@@ -42,6 +42,7 @@ setup(name='collective.dms.thesaurus',
       install_requires=[
           'setuptools',
           'plone.app.dexterity',
+          'plone.formwidget.autocomplete',
           #'plone.directives.form',
           #'collective.contact.core',
           'five.grok',

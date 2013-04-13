@@ -89,31 +89,31 @@ class DmsThesaurusView(DefaultView):
         form.update()
         return form.render()
 
-
 class ListKeywordsView(BrowserView):
 
-    _vocabulary = None
+    _items = None
 
-    def get_vocabulary(self):
-        context = self
-        if self._vocabulary is not None:
-            return self._vocabulary
+    def getItems(self):
+        context = self.context
+        if self._items is not None:
+            return self._items
+        self._items = list()
+
         catalog = getToolByName(context, 'portal_catalog')
-        # XXX
-        # path = '/'.join(context.getPhysicalPath())
-        # print 'path:', path
-        results = catalog(portal_type='dmskeyword',
-                         ) # path={'query': path,'depth': 1})
-        keywords = [x.getObject() for x in results]
+        path = '/'.join(context.getPhysicalPath())
+        for brain in catalog(portal_type='dmskeyword',
+                         path={'query': path,'depth': 1}
+                         ) :
+            obj = brain.getObject()
+            self._items.append((obj.title, obj.id))
+            for equiv in obj.equivs:
+                self._items.append((equiv, obj.id))
 
         def cmp_keyword(x, y):
-            return cmp(x.title.lower(), y.title.lower())
-        keywords.sort(cmp_keyword)
-        #keyword_ids = [x.id for x in keywords]
-        _c = SimpleVocabulary.createTerm
-        keyword_terms = [ _c(x.id, x.id, x.title) for x in keywords ]
-        self._vocabulary = SimpleVocabulary(keyword_terms)
-        return self._vocabulary
+            return cmp(x[0].lower(), y[0].lower())
+        self._items.sort(cmp_keyword)
+
+        return self._items
 
     def __call__(self):
         from plone.i18n.normalizer.fr import normalizer
@@ -126,18 +126,18 @@ class ListKeywordsView(BrowserView):
         intermediate = []
         other = []
         q = query_string.lower()
-        for value in self.get_vocabulary().by_token.values():
+        for title, id in self.getItems():
             for term in query_terms:
-                if not term in value.title.lower():
+                if not term in title.lower():
                     break
             else:
-                item = (value.title.lower(), '%s|%s' % (value.title, value.value))
+                item = '%s|%s' % (title, id)
                 added = False
-                if value.title.lower().startswith(q):
+                if title.lower().startswith(q):
                     startswith.append(item)
                     added = True
-                for te in value.title.split():
-                    if te.lower().startswith(q):
+                for word in title.split():
+                    if word.lower().startswith(q):
                         intermediate.append(item)
                         added = True
                         break;
@@ -148,10 +148,10 @@ class ListKeywordsView(BrowserView):
         intermediate.sort()
         other.sort()
 
-        r = []
-        for l in (startswith, intermediate, other):
-            for t, e in l:
-                r.append(e)
-                if len(r) > 29:
-                    return '\n'.join(r)
-        return '\n'.join(r)
+        result = list()
+        for _list in (startswith, intermediate, other):
+            for item in _list:
+                result.append(item)
+                if len(result) > 29:
+                    return '\n'.join(result)
+        return '\n'.join(result)

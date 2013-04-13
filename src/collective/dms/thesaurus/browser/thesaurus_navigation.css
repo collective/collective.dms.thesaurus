@@ -1,10 +1,13 @@
 .site-Plone.section-th
 #dmskeywords-navigation {
-  float: left;
 	border: 1px solid gray;
 	margin: 1em 0;
 	padding: 1em;
-	width:  90%;
+	width:  100%;
+}
+
+#dmskeywords-navigation-left-column {
+	width:  75%;
 }
 
 #dmskeywords-navigation h1 {

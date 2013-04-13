@@ -36,11 +36,11 @@ msgid "NT (Narrower Terms)"
 msgstr ""
 
 #: ./dmskeyword.py
-msgid "NH (Historical Note)"
+msgid "HN (Historical Note)"
 msgstr ""
 
 #: ./dmskeyword.py
-msgid "NA (Scope Note)"
+msgid "SN (Scope Note)"
 msgstr ""
 
 #: ./browser/dmskeyword_view.pt

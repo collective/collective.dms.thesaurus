@@ -57,6 +57,7 @@ class EntryPointsWidget(AutocompleteMultiSelectionWidget):
 
     klass = u"entrypoints-widget"
     display_template = ViewPageTemplateFile('entrypoints_display.pt')
+    maxResults = 50
 
     #def __init__(self, request):
     #    super(EntryPointsWidget, self).__init__(request)

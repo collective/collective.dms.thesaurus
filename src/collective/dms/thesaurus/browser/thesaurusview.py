@@ -95,7 +95,7 @@ class ListKeywordsView(BrowserView):
                          ) :
             obj = brain.getObject()
             self._items.append((obj.title, obj.id))
-            for equiv in obj.equivs:
+            for equiv in (obj.equivs or []):
                 self._items.append((equiv, obj.id))
 
         def cmp_keyword(x, y):

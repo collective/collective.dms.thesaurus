@@ -26,6 +26,8 @@ class SimpleThesaurusSource(object):
     def __call__(self, context):
         # build vocab from first thesaurus returned by catalog
         thesaurus = utils.get_thesaurus_object(context)
+        if thesaurus is None:
+            return SimpleVocabulary([])
         thesaurus_path = '/'.join(thesaurus.getPhysicalPath())
         catalog = getToolByName(context, 'portal_catalog')
         results = catalog(portal_type='dmskeyword',
@@ -56,6 +58,8 @@ class KeywordFromSameThesaurusSource(object):
             thesaurus_path = '/'.join(context.getPhysicalPath())
         else:
             thesaurus = utils.get_thesaurus_object(context)
+            if thesaurus is None:
+                return SimpleVocabulary([])
             thesaurus_path = '/'.join(thesaurus.getPhysicalPath())
         catalog = getToolByName(context, 'portal_catalog')
         results = catalog(portal_type='dmskeyword',

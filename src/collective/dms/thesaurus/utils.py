@@ -46,5 +46,8 @@ class ImportJson(BrowserView):
 
 def get_thesaurus_object(context):
     catalog = getToolByName(context, 'portal_catalog')
-    thesaurus = catalog(portal_type='dmsthesaurus')[0].getObject()
+    try:
+        thesaurus = catalog(portal_type='dmsthesaurus')[0].getObject()
+    except IndexError:
+        return None
     return thesaurus

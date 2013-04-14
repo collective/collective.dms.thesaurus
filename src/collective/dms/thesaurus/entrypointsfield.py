@@ -1,33 +1,21 @@
-#from Acquisition import aq_parent
-
 from zope.interface import implements, implementer
 from zope.component import adapter
 
 from zope import schema
-from zope.schema.interfaces import IChoice, IContextSourceBinder
-#from zope.schema.interfaces import IVocabularyFactory
-from zope.schema.vocabulary import SimpleVocabulary
-#from zope.schema.vocabulary import SimpleTerm
-#from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from zope.schema.interfaces import IChoice
 from zope.schema.interfaces import ISet
 from zope.schema.interfaces import IFromUnicode
 
 from zope.browserpage.viewpagetemplatefile import ViewPageTemplateFile
 
 from z3c.form.interfaces import IFormLayer, IFieldWidget
-#from z3c.form.interfaces import IWidget
 from z3c.form.widget import FieldWidget
-#from z3c.form.widget import Widget
-#from z3c.form.browser.select import SelectWidget
 
-from plone.formwidget.autocomplete.interfaces import IAutocompleteWidget
 from plone.formwidget.autocomplete.widget import AutocompleteMultiSelectionWidget
-
-from Products.CMFCore.utils import getToolByName
 
 #from . import _
 
-from collective.dms.thesaurus.vocabulary import InternalThesaurusSource
+#from collective.dms.thesaurus.vocabulary import InternalThesaurusSource
 
 class IEntryPointChoice(IChoice):
     """Thesaurus Entry Point Choice Item.
@@ -45,10 +33,9 @@ class EntryPoints(schema.Set):
 
     def __init__(self, **kw):
         vt = kw.pop('value_type',
-                    #EntryPointChoice(
                     schema.Choice(
                             required=False,
-                            source=InternalThesaurusSource())
+                            vocabulary=u'dms.thesaurus.internalrefs')
                     )
         super(EntryPoints, self).__init__(value_type=vt, **kw)
 

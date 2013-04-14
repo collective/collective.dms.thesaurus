@@ -4,35 +4,25 @@ from zope.interface import Interface
 from zope.component import adapter
 
 from zope import schema
-from zope.schema.interfaces import IChoice
 
 from zope.browserpage.viewpagetemplatefile import ViewPageTemplateFile
 
 from z3c.form.interfaces import IFormLayer, IFieldWidget, ITextWidget
 from z3c.form.widget import FieldWidget
-from z3c.form import form, button, field
-from plone.z3cform import layout
+from z3c.form import form, field
 from z3c.form.browser import text
-#from plone.formwidget.autocomplete.widget import AutocompleteFieldWidget
 
 
-from plone.formwidget.autocomplete.widget import  AutocompleteBase, AutocompleteSelectionWidget
+from plone.formwidget.autocomplete.widget import AutocompleteSelectionWidget
 from plone.formwidget.autocomplete.interfaces import IAutocompleteWidget
 
-#from plone.formwidget.autocomplete import AutocompleteFieldWidget
 from plone.dexterity.browser.view import DefaultView
-#from Products.Five.browser import BrowserView
-
-#from plone.dexterity.interfaces import IDexterityFTI
-#from plone.dexterity.utils import getAdditionalSchemata
 
 from Products.Five import BrowserView
 from Products.CMFCore.utils import getToolByName
-from zope.schema.vocabulary import SimpleVocabulary
 
 
 from collective.dms.thesaurus import _
-from collective.dms.thesaurus.vocabulary import InternalThesaurusSource
 
 class IAutocompleteSearchWidget(IAutocompleteWidget):
     """Simple autocomplete search input widget
@@ -79,15 +69,14 @@ class DmsThesaurusForm(form.Form):
     ignoreContext = True
     template = ViewPageTemplateFile('thesaurus_form.pt')
 
-#from .searchform import SearchForm
 
 class DmsThesaurusView(DefaultView):
 
     def renderForm(self):
         form = DmsThesaurusForm(self.context, self.request)
-        #form = SearchForm(self.context, self.request)
         form.update()
         return form.render()
+
 
 class ListKeywordsView(BrowserView):
 

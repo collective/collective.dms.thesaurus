@@ -12,7 +12,7 @@ from plone.supermodel import model
 from . import _
 from .keywordsfield import ThesaurusKeywords
 from .equivalencesfield import ThesaurusKeywordEquivalences
-from .dmsthesaurus import NoThesaurusFound
+from .vocabulary import NoThesaurusFound
 
 class IDmsKeyword(model.Schema):
     """ """

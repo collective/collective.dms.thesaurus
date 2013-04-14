@@ -1,81 +1,51 @@
 from zope.interface import Interface
-from zope.interface import implements
 from five import grok
 
-from zope.schema.interfaces import IContextSourceBinder
-
-#from zope.component import queryUtility
 from zope.schema.interfaces import IVocabularyFactory
-#from zope.schema.interfaces import ISource, IContextSourceBinder
 from zope.schema.vocabulary import SimpleVocabulary
-#from zope.schema.vocabulary import SimpleTerm
+
 from Products.CMFCore.utils import getToolByName
+
+class NoThesaurusFound(Exception):
+    """No thesaurus found"""
 
 
 class IMainThesaurus(Interface):
     """ Marker interface for main thesaurus container
     """
 
-class ThesaurusVocabulary(SimpleVocabulary):
-
-    def search(self, query_string):
-        q = query_string.lower()
-        return [kw for kw in self._terms if q in kw.title.lower()]
-
-
-class InternalThesaurusSource(object):
-    implements(IContextSourceBinder)
-
-    _vocabulary = None
+class SimpleThesaurusSource(object):
+    """This basic vocabulary is here mainly for demo purpose.
+    It is not meant to be used when a Plone site contains more than one
+    thesaurus.
+    """
+    grok.implements(IVocabularyFactory)
 
     def __call__(self, context):
-        if self._vocabulary is not None:
-            return self._vocabulary
         catalog = getToolByName(context, 'portal_catalog')
-        path = '/'.join(context.getPhysicalPath())
+        thesaurus = catalog(portal_type='dmsthesaurus')
+        if not len(thesaurus):
+            raise NoThesaurusFound
+        # build vocab from first thesaurus returned by catalog
+        thesaurus_path = '/'.join(thesaurus[0].getPath())
         results = catalog(portal_type='dmskeyword',
-                          path={'query': path,'depth': 1})
+                          path={'query': thesaurus_path,'depth': 1})
         keywords = [x.getObject() for x in results]
-        def cmp_keyword(x, y):
-            return cmp(x.title.lower(), y.title.lower())
-        keywords.sort(cmp_keyword)
-        #keyword_ids = [x.id for x in keywords]
-        _c = SimpleVocabulary.createTerm
-        keyword_terms = [ _c(x.id, x.id, x.title) for x in keywords ]
-        self._vocabulary = ThesaurusVocabulary(keyword_terms)
-
-    def __iter__(self):
-        # hack to let schema editor handle the field
-        yield u'DO NOT TOUCH'
-
-
-class GlobalThesaurusSource(object):
-    implements(IContextSourceBinder)
-
-    def __call__(self, context):
-        catalog = getToolByName(context, 'portal_catalog')
-        results = catalog(portal_type='dmskeyword')
-        keywords = [x.getObject() for x in results]
-        def cmp_keyword(x, y):
-            return cmp(x.title, y.title)
-        keywords.sort(cmp_keyword)
-        #keyword_ids = [x.id for x in keywords]
         keyword_terms = [SimpleVocabulary.createTerm(
                                 x.id, x.id, x.title) for x in keywords]
-        return ThesaurusVocabulary(keyword_terms)
+        return SimpleVocabulary(keyword_terms)
 
     def __iter__(self):
         # hack to let schema editor handle the field
         yield u'DO NOT TOUCH'
 
 
-#grok.global_utility(GlobalThesaurusSource,
-#                    name=u'dms.thesaurus.global')
+grok.global_utility(SimpleThesaurusSource,
+                    name=u'dms.thesaurus.simple')
 
 
 class KeywordFromSameThesaurusSource(object):
-    """
-    This vocabulary is used for keywords that reference one another
+    """This vocabulary is used for keywords that reference one another
     inside the same thesaurus. It should not be used for referencing
     keywords from other content types.
     """
@@ -90,11 +60,7 @@ class KeywordFromSameThesaurusSource(object):
         results = catalog(portal_type='dmskeyword',
                           path={'query': thesaurus_path,'depth': 1})
         keywords = [x.getObject() for x in results]
-        def cmp_keyword(x, y):
-            return cmp(x.title, y.title)
-        keywords.sort(cmp_keyword)
 
-        keyword_ids = [x.id for x in keywords]
         keyword_terms = [SimpleVocabulary.createTerm(
                                 x.id, x.id, x.title) for x in keywords]
         return SimpleVocabulary(keyword_terms)

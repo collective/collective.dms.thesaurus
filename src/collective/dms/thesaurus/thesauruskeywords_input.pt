@@ -30,7 +30,9 @@
     ></tal:block
 ></span>
 
-<a href="#" class="kw_add_link">Add keyword</a>
+<a href="#" class="kw_add_link"
+    i18n:domain="collective.dms.thesaurus"
+    i18n:translate="">Add keyword</a>
 <script type="text/javascript" tal:content="structure view/js"></script>
 
 <script type="text/javascript">

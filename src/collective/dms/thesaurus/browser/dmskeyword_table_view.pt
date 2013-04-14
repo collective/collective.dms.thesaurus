@@ -27,6 +27,7 @@
 
             <h1 class="documentFirstHeading" tal:content="context/Title" /> 
             <button tal:condition="python: 'ajax_load' in request.form.keys()"
+                    i18n:domain="collective.dms.thesaurus"
                     i18n:translate="">Select</button>
             <p class="documentDescription"
                tal:define="widget python:view.widgets.get('equivs')"

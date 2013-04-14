@@ -58,6 +58,14 @@ function prep_thesaurus_overlay() {
     $(field).find('.selected-options').append('<span class="selected-option" data-term-id="' + id + '">' +
         '<span>' + title + '</span>' +
         '<span class="remove">×</span></span>\n');
+
+    $('span.remove').unbind('click').click(function() {
+      var field = $(this).parents('.field');
+      var term_id = $(this).parent().attr('data-term-id');
+      $(field).find('select option[id=' + term_id + ']').remove();
+      $(this).parent().remove();
+    });
+
     $(this).parents('.overlay-ajax').find('.close').click();
     return false;
   });

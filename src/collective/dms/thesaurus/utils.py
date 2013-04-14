@@ -9,6 +9,7 @@ from zope.schema.interfaces import IVocabularyFactory
 from zope.event import notify
 from zope.lifecycleevent import ObjectAddedEvent, ObjectModifiedEvent
 
+from Products.CMFCore.utils import getToolByName
 
 class ImportJson(BrowserView):
     def __call__(self):
@@ -41,3 +42,9 @@ class ImportJson(BrowserView):
             notify(ObjectModifiedEvent(object))
 
         return 'OK'
+
+
+def get_thesaurus_object(context):
+    catalog = getToolByName(context, 'portal_catalog')
+    thesaurus = catalog(portal_type='dmsthesaurus')[0].getObject()
+    return thesaurus

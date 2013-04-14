@@ -1,9 +1,0 @@
-<ul id="" class=""
-    tal:condition="view/displayItems"
-    tal:define="th_url python:'/'.join(view.context.absolute_url().split('/')[:-1]);"
-    tal:attributes="id view/id"
-      ><li tal:repeat="value view/displayItems"><a href=""
-           tal:content="value/title"
-           tal:attributes="href value/href"
-           /></li
-></ul>

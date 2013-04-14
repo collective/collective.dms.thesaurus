@@ -6,6 +6,8 @@ from zope.schema.vocabulary import SimpleVocabulary
 
 from Products.CMFCore.utils import getToolByName
 
+import utils
+
 class NoThesaurusFound(Exception):
     """No thesaurus found"""
 
@@ -14,7 +16,7 @@ class IMainThesaurus(Interface):
     """ Marker interface for main thesaurus container
     """
 
-class SimpleThesaurusSource(object):
+class GlobalThesaurusSource(object):
     """This basic vocabulary is here mainly for demo purpose.
     It is not meant to be used when a Plone site contains more than one
     thesaurus.
@@ -40,8 +42,8 @@ class SimpleThesaurusSource(object):
         yield u'DO NOT TOUCH'
 
 
-grok.global_utility(SimpleThesaurusSource,
-                    name=u'dms.thesaurus.simple')
+grok.global_utility(GlobalThesaurusSource,
+                    name=u'dms.thesaurus.global')
 
 
 class KeywordFromSameThesaurusSource(object):
@@ -55,7 +57,8 @@ class KeywordFromSameThesaurusSource(object):
         if context.portal_type == 'dmsthesaurus':
             thesaurus_path = '/'.join(context.getPhysicalPath())
         else:
-            thesaurus_path = '/'.join(context.thesaurusPath())
+            thesaurus = utils.get_thesaurus_object(context)
+            thesaurus_path = '/'.join(thesaurus.getPhysicalPath())
         catalog = getToolByName(context, 'portal_catalog')
         results = catalog(portal_type='dmskeyword',
                           path={'query': thesaurus_path,'depth': 1})

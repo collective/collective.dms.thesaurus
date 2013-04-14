@@ -54,28 +54,10 @@ class IDmsKeyword(model.Schema):
         required=False,
         )
 
-    def thesaurus():
-        """get parent thesaurus"""
-
-    def thesaurusPath():
-        """get parent thesaurus physical path"""
-
 
 class DmsKeyword(Item):
     """ """
     implements(IDmsKeyword)
-
-    def thesaurus(self):
-        thesaurus = self
-        while thesaurus.portal_type != "dmsthesaurus":
-            thesaurus = aq_parent(thesaurus)
-        if not hasattr(thesaurus, 'portal_type') or getattr(thesaurus, 'portal_type', None) is None:
-            raise NoThesaurusFound
-        return thesaurus
-
-    def thesaurusPath(self):
-        return self.thesaurus().getPhysicalPath()
-
 
 
 class DmsKeywordSchemaPolicy(DexteritySchemaPolicy):

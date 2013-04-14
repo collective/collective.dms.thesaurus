@@ -9,6 +9,9 @@ from z3c.form.widget import FieldWidget, SequenceWidget
 
 from . import _
 
+import utils
+
+
 class IThesaurusKeywords(ISet):
     pass
 
@@ -48,7 +51,8 @@ class ThesaurusKeywordsWidget(SequenceWidget):
 
     @property
     def js(self):
-        thesaurus_path = '/'.join(self.context.thesaurusPath())
+        thesaurus = utils.get_thesaurus_object(self.context)
+        thesaurus_path = '/'.join(thesaurus.getPhysicalPath())
         return JS_TEMPLATE % dict(
             thesaurus_url=thesaurus_path
             )
@@ -66,7 +70,8 @@ class ThesaurusKeywordsWidget(SequenceWidget):
         return value
 
     def displayItems(self):
-        thesaurus_path = '/'.join(self.context.thesaurusPath())
+        thesaurus = utils.get_thesaurus_object(self.context)
+        thesaurus_path = '/'.join(thesaurus.getPhysicalPath())
         value = []
         for token in self.value:
             # Ignore no value entries. They are in the request only.

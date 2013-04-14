@@ -1,6 +1,8 @@
 from Products.CMFCore.utils import getToolByName
 from plone.dexterity.browser.view import DefaultView
 
+from collective.dms.thesaurus import utils
+
 class DmsKeywordView(DefaultView):
     """The default view for DMSKeyword.
     """
@@ -12,7 +14,8 @@ class DmsKeywordView(DefaultView):
         Query is restricted to same thesaurus.
         Returns a list of dicts with ``url`` and ``label`` attributes.
         """
-        thesaurus_path = '/'.join(self.context.thesaurusPath())
+        thesaurus = utils.get_thesaurus_object(self.context)
+        thesaurus_path = '/'.join(thesaurus.getPhysicalPath())
         catalog = getToolByName(self.context, 'portal_catalog')
         brains = catalog.searchResults(portal_type='dmskeyword',
             path={'query': thesaurus_path,'depth': 1},
@@ -35,7 +38,7 @@ class DmsKeywordView(DefaultView):
         """
         refs = []
         related = self.context.related
-        thesaurus = self.context.thesaurus()
+        thesaurus = utils.get_thesaurus_object(self.context)
         thesaurus_path = '/'.join(thesaurus.getPhysicalPath())
         for ref in related:
             kw = getattr(thesaurus, ref)

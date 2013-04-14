@@ -27,12 +27,22 @@
            tal:attributes="data-term-id item/value">
            <span tal:content="item/content"
     /> <span class="remove">×</span></span
-    ><tal:block condition="not:repeat/item/end">, </tal:block
-  ></tal:block
+    ></tal:block
 ></span>
 
 <a href="#" class="kw_add_link">Add keyword</a>
 <script type="text/javascript" tal:content="structure view/js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $('span.remove').unbind('click').click(function() {
+    var field = $(this).parents('.field');
+    var term_id = $(this).parent().attr('data-term-id');
+    $(field).find('select option[id=' + term_id + ']').remove();
+    $(this).parent().remove();
+  });
+});
+</script>
 
 <style type="text/css">
 span.selected-option {

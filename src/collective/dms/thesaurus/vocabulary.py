@@ -24,12 +24,10 @@ class SimpleThesaurusSource(object):
     grok.implements(IVocabularyFactory)
 
     def __call__(self, context):
-        catalog = getToolByName(context, 'portal_catalog')
-        thesaurus = catalog(portal_type='dmsthesaurus')
-        if not len(thesaurus):
-            raise NoThesaurusFound
         # build vocab from first thesaurus returned by catalog
-        thesaurus_path = '/'.join(thesaurus[0].getPath())
+        thesaurus = utils.get_thesaurus_object(context)
+        thesaurus_path = '/'.join(thesaurus.getPhysicalPath())
+        catalog = getToolByName(context, 'portal_catalog')
         results = catalog(portal_type='dmskeyword',
                           path={'query': thesaurus_path,'depth': 1})
         keywords = [x.getObject() for x in results]

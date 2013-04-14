@@ -16,10 +16,18 @@ msgstr ""
 "X-is-fallback-for: fr-fr fr-be fr-ca\n"
 
 #: ./profiles/default/types/dmskeyword.xml
+msgid "Keyword"
+msgstr "Mot clé"
+
+#: ./profiles/default/types/dmskeyword.xml
 msgid "Thesaurus Keyword"
-msgstr "Mot clé du thesaurus"
+msgstr "Mot clé du thésaurus"
 
 #: ./profiles/default/types/dmsthesaurus.xml
 msgid "Thesaurus"
 msgstr "Thésaurus"
+
+#: ./profiles/default/types/dmsthesaurus.xml
+msgid "DMS Thesaurus"
+msgstr "Thésaurus GED"
 

@@ -2,7 +2,7 @@
 <object name="dmskeyword" meta_type="Dexterity FTI" i18n:domain="plone"
    xmlns:i18n="http://xml.zope.org/namespaces/i18n">
  <property name="title" i18n:translate="">Keyword</property>
- <property name="description" i18n:translate="">DMS Keyword</property>
+ <property name="description" i18n:translate="">Thesaurus Keyword</property>
  <property name="icon_expr">string:${portal_url}/++resource++thesaurus_item_icon.png</property>
  <property name="factory">dmskeyword</property>
  <property name="add_view_expr">string:${folder_url}/++add++dmskeyword</property>

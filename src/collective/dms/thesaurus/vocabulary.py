@@ -16,7 +16,7 @@ class IMainThesaurus(Interface):
     """ Marker interface for main thesaurus container
     """
 
-class GlobalThesaurusSource(object):
+class SimpleThesaurusSource(object):
     """This basic vocabulary is here mainly for demo purpose.
     It is not meant to be used when a Plone site contains more than one
     thesaurus.
@@ -42,8 +42,8 @@ class GlobalThesaurusSource(object):
         yield u'DO NOT TOUCH'
 
 
-grok.global_utility(GlobalThesaurusSource,
-                    name=u'dms.thesaurus.global')
+grok.global_utility(SimpleThesaurusSource,
+                    name=u'dms.thesaurus.simple')
 
 
 class KeywordFromSameThesaurusSource(object):

@@ -14,7 +14,8 @@
     <div tal:replace="structure provider:plone.belowcontenttitle" />
     </tal:contents_header>
 
-    <div id="dmskeywords-navigation">
+    <div id="dmskeywords-navigation"
+         tal:attributes="data-thesaurus-url context/absolute_url">
 
     <form id="thesaurus-search-form" tal:content="structure view/renderForm">
     </form>
@@ -63,6 +64,19 @@ function prep_thesaurus_overlay() {
 }
 
 prep_thesaurus_overlay();
+
+function autocomplete_ready(event, data, formatted) {
+    var keyword_id = data[1];
+    $(this).parents('.overlay-ajax').data('keyword-id', keyword_id);
+    thesaurus_url = $('#dmskeywords-navigation').data('thesaurus-url');
+    $('.pb-ajax > div').load(thesaurus_url+'/'+data[1] + '?ajax_load=123 #content>*', prep_thesaurus_overlay);
+}
+
+thesaurus_url = $('#dmskeywords-navigation').data('thesaurus-url');
+$('.keyword-search').autocomplete(thesaurus_url + '/listKeywords', {
+                'cacheLength': 0, 'matchContains': true, 'scroll': true, 'max': 30}).result(autocomplete_ready);
+
+
 </script>
 
     </div>

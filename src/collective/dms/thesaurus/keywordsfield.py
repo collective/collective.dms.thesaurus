@@ -52,6 +52,8 @@ class ThesaurusKeywordsWidget(SequenceWidget):
     @property
     def js(self):
         thesaurus = utils.get_thesaurus_object(self.context)
+        if thesaurus is None:
+            return ''
         thesaurus_path = '/'.join(thesaurus.getPhysicalPath())
         return JS_TEMPLATE % dict(
             thesaurus_url=thesaurus_path

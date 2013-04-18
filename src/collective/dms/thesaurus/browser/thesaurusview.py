@@ -86,6 +86,7 @@ class ListKeywordsView(BrowserView):
         context = self.context
         if self._items is not None:
             return self._items
+        titles = list()
         self._items = list()
 
         catalog = getToolByName(context, 'portal_catalog')
@@ -94,9 +95,16 @@ class ListKeywordsView(BrowserView):
                          path={'query': path,'depth': 1}
                          ) :
             obj = brain.getObject()
-            self._items.append((obj.title, obj.id))
-            for equiv in (obj.equivs or []):
-                self._items.append((equiv, obj.id))
+            normalized = normalizer.normalize(obj.title).lower()
+            if normalized in titles:
+                continue
+            self._items.append((normalized, obj.title, obj.id))
+            titles.append(normalized)
+            for equiv in obj.equivs:
+                normalized = normalizer.normalize(equiv).lower()
+                if normalized in  titles:
+                    continue
+                self._items.append((normalized, equiv, obj.id))
 
         def cmp_keyword(x, y):
             return cmp(x[0].lower(), y[0].lower())
@@ -105,7 +113,6 @@ class ListKeywordsView(BrowserView):
         return self._items
 
     def __call__(self):
-        from plone.i18n.normalizer.fr import normalizer
         self.request.response.setHeader('Content-type', 'text/plain')
 
         query_string = unicode(self.request.form.get('q'), 'utf-8')
@@ -115,23 +122,20 @@ class ListKeywordsView(BrowserView):
         intermediate = []
         other = []
         q = query_string.lower()
-        for title, id in self.getItems():
+        for normalized, title, id in self.getItems():
             for term in query_terms:
                 if not term in title.lower():
                     break
-            else:
-                item = '%s|%s' % (title, id)
-                added = False
-                if title.lower().startswith(q):
-                    startswith.append(item)
-                    added = True
-                for word in title.split():
-                    if word.lower().startswith(q):
-                        intermediate.append(item)
-                        added = True
-                        break;
-                if not added:
-                    other.append(item)
+                else:
+                    item = '%s|%s' % (title, id)
+                    if title.lower().startswith(q):
+                        startswith.append((normalized, item))
+                        continue
+                    for word in title.split():
+                        if word.lower().startswith(q):
+                            intermediate.append((normalized, item))
+                        continue
+                    other.append((normalized, item))
 
         startswith.sort()
         intermediate.sort()
@@ -140,7 +144,7 @@ class ListKeywordsView(BrowserView):
         result = list()
         for _list in (startswith, intermediate, other):
             for item in _list:
-                result.append(item)
+                result.append(item[1])
                 if len(result) > 29:
                     return '\n'.join(result)
         return '\n'.join(result)

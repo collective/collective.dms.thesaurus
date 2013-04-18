@@ -18,6 +18,8 @@ from plone.formwidget.autocomplete.interfaces import IAutocompleteWidget
 
 from plone.dexterity.browser.view import DefaultView
 
+from plone.i18n.normalizer.fr import normalizer
+
 from Products.Five import BrowserView
 from Products.CMFCore.utils import getToolByName
 
@@ -100,7 +102,7 @@ class ListKeywordsView(BrowserView):
                 continue
             self._items.append((normalized, obj.title, obj.id))
             titles.append(normalized)
-            for equiv in obj.equivs:
+            for equiv in (obj.equivs or []):
                 normalized = normalizer.normalize(equiv).lower()
                 if normalized in  titles:
                     continue

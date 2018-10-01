@@ -4,3 +4,4 @@
 - Cédric Messiant, Ecreall
 - Frédéric Peters, Entr'ouvert
 - David Convent, Entr'ouvert
+- Laurent Lasudry, Affinitic

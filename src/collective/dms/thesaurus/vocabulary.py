@@ -63,10 +63,8 @@ class KeywordFromSameThesaurusSource(object):
         catalog = getToolByName(context, 'portal_catalog')
         results = catalog(portal_type='dmskeyword',
                           path={'query': thesaurus_path,'depth': 1})
-        keywords = [x.getObject() for x in results]
-
         keyword_terms = [SimpleVocabulary.createTerm(
-                                x.id, x.id, x.title) for x in keywords]
+                                x.getId, x.getId, x.Title) for x in results]
         return SimpleVocabulary(keyword_terms)
 
     def __iter__(self):
